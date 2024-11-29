@@ -27,6 +27,15 @@ public class Game {
     @Column(name = "start_time", nullable = false, columnDefinition = "TIMESTAMP WITH TIME ZONE")
     private OffsetDateTime startTime;
 
+    @Column(name = "home_points")
+    private Integer homePoints;
+
+    @Column(name = "away_points")
+    private Integer awayPoints;
+
+    @Column(name = "point_spread")
+    private Double pointSpread;
+
     protected Game() {}
 
     public Game(Team homeTeam, Team awayTeam, Integer week, OffsetDateTime startTime) {
@@ -54,6 +63,33 @@ public class Game {
 
     public Long getId() {
         return id;
+    }
+
+    public Integer getHomePoints() {
+        return homePoints;
+    }
+
+    public Game setHomePoints(Integer homePoints) {
+        this.homePoints = homePoints;
+        return this;
+    }
+
+    public Integer getAwayPoints() {
+        return awayPoints;
+    }
+
+    public Game setAwayPoints(Integer awayPoints) {
+        this.awayPoints = awayPoints;
+        return this;
+    }
+
+    public Double getPointSpread() {
+        return pointSpread;
+    }
+
+    public Game setPointSpread(Double pointSpread) {
+        this.pointSpread = pointSpread;
+        return this;
     }
 
     @Override

@@ -85,6 +85,5 @@ public class WeeklyGameSelectionServiceImplIntegrationTest {
         assertNotNull(selectionsForWeek2);
         assertEquals(1, selectionsForWeek2.size());
         assertTrue(selectionsForWeek2.contains(weeklyGameSelection3));
-
     }
 }
