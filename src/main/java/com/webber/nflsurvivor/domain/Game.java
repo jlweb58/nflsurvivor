@@ -13,11 +13,11 @@ public class Game {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn (name = "home_team_id", referencedColumnName = "id", nullable = false)
     private Team homeTeam;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "away_team_id", referencedColumnName = "id", nullable = false)
     private Team awayTeam;
 
@@ -29,7 +29,12 @@ public class Game {
 
     protected Game() {}
 
-    public Game(Team homeTeam, Team awayTeam, Integer week, OffsetDateTime startTime) {}
+    public Game(Team homeTeam, Team awayTeam, Integer week, OffsetDateTime startTime) {
+        this.homeTeam = homeTeam;
+        this.awayTeam = awayTeam;
+        this.week = week;
+        this.startTime = startTime;
+    }
 
     public Team getHomeTeam() {
         return homeTeam;

@@ -9,23 +9,30 @@ public class WeeklyGameSelection {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false)
     private User user;
 
-    @Column(name = "week", nullable = false)
-    private Integer week;
-
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "winning_team_id", referencedColumnName = "id", nullable = false)
-    private Team winningTeam;
+    private Team winningTeamSelection;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "game_result")
     private GameResult gameResult;
 
+    @ManyToOne
+    @JoinColumn(name = "selected_game_id", referencedColumnName = "id", nullable = false)
+    private Game selectedGame;
+
     protected WeeklyGameSelection() {
 
+    }
+
+    public WeeklyGameSelection(User user, Team winningTeamSelection, Game selectedGame) {
+        this.user = user;
+        this.winningTeamSelection = winningTeamSelection;
+        this.selectedGame = selectedGame;
     }
 
     public Long getId() {
@@ -36,16 +43,21 @@ public class WeeklyGameSelection {
         return user;
     }
 
-    public Integer getWeek() {
-        return week;
+    public Team getWinningTeamSelection() {
+        return winningTeamSelection;
     }
 
-    public Team getWinningTeam() {
-        return winningTeam;
+    public Game getSelectedGame() {
+        return selectedGame;
     }
 
     public GameResult getGameResult() {
         return gameResult;
+    }
+
+    public WeeklyGameSelection setGameResult(GameResult gameResult) {
+        this.gameResult = gameResult;
+        return this;
     }
 
     @Override
@@ -53,8 +65,8 @@ public class WeeklyGameSelection {
         return "WeeklyGameSelection{" +
                 "id=" + id +
                 ", user=" + user +
-                ", week=" + week +
-                ", winningTeam=" + winningTeam +
+                ", game=" + selectedGame +
+                ", winningTeam=" + winningTeamSelection +
                 ", gameResult=" + gameResult +
                 '}';
     }

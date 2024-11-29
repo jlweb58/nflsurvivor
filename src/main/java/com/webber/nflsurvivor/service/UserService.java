@@ -9,7 +9,7 @@ public interface UserService {
      * @param email  The email (may not be null)
      * @return  The unique user with that email, or <code>null</code> if none is found.
      */
-    User find(String email);
+    User findByEmail(String email);
 
     /**
      * Create a new persistent user.

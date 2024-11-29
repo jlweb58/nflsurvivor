@@ -1,7 +1,7 @@
 package com.webber.nflsurvivor.service;
 
 import com.webber.nflsurvivor.SurvivorApplication;
-import com.webber.nflsurvivor.domain.User;
+import com.webber.nflsurvivor.domain.Team;
 import jakarta.transaction.Transactional;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,24 +13,25 @@ import static org.junit.jupiter.api.Assertions.*;
 @SpringBootTest(classes = SurvivorApplication.class)
 @Transactional
 @TestPropertySource(locations = "classpath:application-test.properties")
-public class UserServiceImplIntegrationTest {
+public class TeamServiceImplIntegrationTest {
 
     @Autowired
-    private UserService userService;
+    private TeamService teamService;
 
     @Test
-    public void testCreateAndFindByEmail() {
-        User user = new User("testname", "test@test.com", "password");
-        User created = userService.create(user);
+    public void testCreateAndFindByName() {
+        Team team = new Team("Seattle Seahawks", new byte[]{0x1, 0x2, 0x3, 0x4});
+        Team created = teamService.create(team);
         assertNotNull(created);
-        User found = userService.findByEmail("test@test.com");
+        Team found = teamService.findByName(created.getName());
         assertEquals(created, found);
     }
 
     @Test
     public void testCreateAlreadyExists() {
-        User user = new User("testname", "test@test.com", "password");
-        User created = userService.create(user);
-        assertThrows(IllegalArgumentException.class, () -> userService.create(created));
+        Team team = new Team("Seattle Seahawks", new byte[]{0x1, 0x2, 0x3, 0x4});
+        Team created = teamService.create(team);
+        assertThrows(IllegalArgumentException.class, () -> teamService.create(created));
     }
+
 }
