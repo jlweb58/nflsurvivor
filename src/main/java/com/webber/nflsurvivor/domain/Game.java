@@ -25,7 +25,7 @@ public class Game {
     private Integer week;
 
     @Column(name = "start_time", nullable = false, columnDefinition = "TIMESTAMP WITH TIME ZONE")
-    private OffsetDateTime startTime;
+    private ZonedDateTime startTime;
 
     @Column(name = "home_points")
     private Integer homePoints;
@@ -38,7 +38,7 @@ public class Game {
 
     protected Game() {}
 
-    public Game(Team homeTeam, Team awayTeam, Integer week, OffsetDateTime startTime) {
+    public Game(Team homeTeam, Team awayTeam, Integer week, ZonedDateTime startTime) {
         this.homeTeam = homeTeam;
         this.awayTeam = awayTeam;
         this.week = week;
@@ -57,7 +57,7 @@ public class Game {
         return week;
     }
 
-    public OffsetDateTime getStartTime() {
+    public ZonedDateTime getStartTime() {
         return startTime;
     }
 

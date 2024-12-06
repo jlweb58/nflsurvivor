@@ -31,6 +31,8 @@ dependencies {
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 	//Needed for JUnit5
 	testImplementation "org.junit.jupiter:junit-jupiter-api"
+	testImplementation "org.mockito:mockito-core"
+	testImplementation "org.mockito:mockito-junit-jupiter"
 	testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine"
 
 }
