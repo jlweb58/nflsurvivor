@@ -1,7 +1,8 @@
-package com.webber.nflsurvivor.service;
+package com.webber.nflsurvivor.service.impl;
 
 import com.webber.nflsurvivor.domain.User;
 import com.webber.nflsurvivor.repository.UserRepository;
+import com.webber.nflsurvivor.service.UserService;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
