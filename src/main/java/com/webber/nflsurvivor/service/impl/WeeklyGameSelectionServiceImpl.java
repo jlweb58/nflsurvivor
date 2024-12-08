@@ -35,7 +35,7 @@ public class WeeklyGameSelectionServiceImpl implements WeeklyGameSelectionServic
         ZonedDateTime now = dateTimeService.getCurrentDateTime();
         now = now.plusMinutes(15);
         ZonedDateTime gameTime = weeklyGameSelection.getSelectedGame().getStartTime();
-        if (!now.isBefore(gameTime)) {
+        if (!now.isAfter(gameTime)) {
             throw new GameWillStartSoonException("Game start time " + gameTime + " is too close to current time: " + now.plusMinutes(15));
         }
 
