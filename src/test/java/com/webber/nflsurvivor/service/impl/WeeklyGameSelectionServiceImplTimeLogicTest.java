@@ -1,18 +1,7 @@
 package com.webber.nflsurvivor.service.impl;
 
-import com.webber.nflsurvivor.SurvivorApplication;
 import com.webber.nflsurvivor.domain.*;
-import com.webber.nflsurvivor.repository.WeeklyGameSelectionRepository;
-import com.webber.nflsurvivor.service.*;
-import jakarta.transaction.Transactional;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.TestPropertySource;
 
 import java.time.*;
 import java.util.List;
@@ -20,56 +9,8 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
-@SpringBootTest(classes = SurvivorApplication.class)
-@Transactional
-@TestPropertySource(locations = "classpath:application-test.properties")
-@ExtendWith(MockitoExtension.class)
-public class WeeklyGameSelectionServiceImplIntegrationTest {
+public class WeeklyGameSelectionServiceImplTimeLogicTest extends AbstractWeeklyGameSelectionServiceImplTest {
 
-    private WeeklyGameSelectionServiceImpl weeklyGameSelectionService;
-
-    @Autowired
-    private WeeklyGameSelectionRepository weeklyGameSelectionRepository;
-
-    @Autowired
-    private GameService gameService;
-
-    @Autowired
-    private TeamService teamService;
-
-    @Autowired
-    private UserService userService;
-
-    @Mock
-    private DateTimeService dateTimeService;
-
-    private User user1;
-
-    private User user2;
-
-    private Team team1;
-
-    private Team team2;
-
-    private Team team3;
-
-    private Team team4;
-
-    private final ZoneId berlinZone = ZoneId.of("Europe/Berlin");
-
-    private final ZoneId newYorkZone = ZoneId.of("America/New_York");
-
-
-    @BeforeEach
-    public void setUp() {
-        user1 = userService.create(new User("test", "test@test.com", "12345"));
-        user2 = userService.create(new User("test2", "test2@test.com", "56789"));
-        team1 = teamService.create(new Team("Team1", new byte[] {1, 2, 3, 4, 5}));
-        team2 = teamService.create(new Team("Team2", new byte[] {1, 2, 3, 4, 5}));
-        team3 = teamService.create(new Team("Team3", new byte[] {1, 2, 3, 4, 5}));
-        team4 = teamService.create(new Team("Team4", new byte[] {1, 2, 3, 4, 5}));
-        weeklyGameSelectionService = new WeeklyGameSelectionServiceImpl(weeklyGameSelectionRepository, dateTimeService);
-    }
 
     @Test
     public void testCreateAndFindForUser() throws Exception {
@@ -131,7 +72,7 @@ public class WeeklyGameSelectionServiceImplIntegrationTest {
         WeeklyGameSelection createdGameSelection = weeklyGameSelectionService.create(invalidGameSelection);
         assertNotNull(createdGameSelection);
     }
-    
+
     @Test
     public void testCanNotCreateSelectionAfterGameHasStarted() throws Exception {
         ZonedDateTime gameStartTime = ZonedDateTime.of(LocalDateTime.of(2025, 10, 10, 10, 0), newYorkZone);
@@ -140,17 +81,5 @@ public class WeeklyGameSelectionServiceImplIntegrationTest {
         assertThrows(GameWillStartSoonException.class, ()-> {
             weeklyGameSelectionService.create(invalidGameSelection);
         });
-    }
-
-    private ZonedDateTime convertGameTimeWithOffset(ZonedDateTime gameTime, int offsetMinutes) {
-        ZonedDateTime localTime = gameTime.withZoneSameInstant(berlinZone);
-        return localTime.plusMinutes(offsetMinutes);
-    }
-
-
-    private WeeklyGameSelection createWeeklyGameSelection(ZonedDateTime gameStartTime, ZonedDateTime userCurrentDateTime) {
-        when(dateTimeService.getCurrentDateTime()).thenReturn(userCurrentDateTime);
-        Game selectedGame1 = gameService.create(new Game(team1, team2, 1, gameStartTime));
-        return new WeeklyGameSelection(user1, team1, selectedGame1);
     }
 }

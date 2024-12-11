@@ -1,6 +1,7 @@
 package com.webber.nflsurvivor.service.impl;
 
 import com.webber.nflsurvivor.domain.GameWillStartSoonException;
+import com.webber.nflsurvivor.domain.TeamAlreadySelectedException;
 import com.webber.nflsurvivor.domain.User;
 import com.webber.nflsurvivor.domain.WeeklyGameSelection;
 import com.webber.nflsurvivor.repository.WeeklyGameSelectionRepository;
@@ -28,7 +29,7 @@ public class WeeklyGameSelectionServiceImpl implements WeeklyGameSelectionServic
     }
 
     @Override
-    public WeeklyGameSelection create(WeeklyGameSelection weeklyGameSelection) throws GameWillStartSoonException {
+    public WeeklyGameSelection create(WeeklyGameSelection weeklyGameSelection) throws GameWillStartSoonException, TeamAlreadySelectedException {
         if (weeklyGameSelection.getId() != null) {
             throw new IllegalArgumentException("WeeklyGameSelection " + weeklyGameSelection + " already exists");
         }
@@ -38,7 +39,11 @@ public class WeeklyGameSelectionServiceImpl implements WeeklyGameSelectionServic
         if (now.isAfter(gameTime)) {
             throw new GameWillStartSoonException("Game start time " + gameTime + " is too close to current time: " + now.plusMinutes(15));
         }
-
+        List<WeeklyGameSelection> allUserGameSelections = weeklyGameSelectionRepository.findAllByUser(weeklyGameSelection.getUser());
+        boolean isTeamAlreadyPicked = allUserGameSelections.stream().anyMatch(s -> s.getWinningTeamSelection().equals(weeklyGameSelection.getWinningTeamSelection()));
+        if (isTeamAlreadyPicked) {
+            throw new TeamAlreadySelectedException("Team " + weeklyGameSelection.getWinningTeamSelection() + " was already selected by this user");
+        }
         return weeklyGameSelectionRepository.save(weeklyGameSelection);
     }
 
