@@ -27,5 +27,6 @@ out/
 !**/src/main/**/out/
 !**/src/test/**/out/
 
+application-localhost.properties
 application-localhost.yml
 
