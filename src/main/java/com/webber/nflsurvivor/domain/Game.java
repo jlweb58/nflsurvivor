@@ -6,6 +6,7 @@ import java.time.OffsetDateTime;
 import java.time.ZonedDateTime;
 
 @Entity
+@Table(name = "games")
 public class Game {
 
 
@@ -24,7 +25,7 @@ public class Game {
     @Column(name = "week", nullable = false)
     private Integer week;
 
-    @Column(name = "start_time", nullable = false, columnDefinition = "TIMESTAMP WITH TIME ZONE")
+    @Column(name = "start_time", nullable = false)
     private ZonedDateTime startTime;
 
     @Column(name = "home_points")
