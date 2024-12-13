@@ -7,6 +7,8 @@ import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @Transactional
 public class TeamServiceImpl implements TeamService {
@@ -29,5 +31,10 @@ public class TeamServiceImpl implements TeamService {
     @Override
     public Team findByName(String name) {
         return teamRepository.findByName(name);
+    }
+
+    @Override
+    public List<Team> findAll() {
+        return teamRepository.findAll();
     }
 }

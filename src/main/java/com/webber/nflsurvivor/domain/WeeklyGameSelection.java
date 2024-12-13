@@ -3,6 +3,7 @@ package com.webber.nflsurvivor.domain;
 import jakarta.persistence.*;
 
 @Entity
+@Table(name = "weekly_game_selections")
 public class WeeklyGameSelection {
 
     @Id
