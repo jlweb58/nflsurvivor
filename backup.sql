@@ -20,6 +20,8 @@
 -- Sequence structure for `app_users_seq`
 --
 
+USE nfl;
+
 DROP SEQUENCE IF EXISTS `app_users_seq`;
 CREATE SEQUENCE `app_users_seq` start with 1 minvalue 1 maxvalue 9223372036854775806 increment by 50 cache 1000 nocycle ENGINE=InnoDB;
 DO SETVAL(`app_users_seq`, 1, 0);
