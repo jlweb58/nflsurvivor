@@ -8,7 +8,7 @@ CREATE SEQUENCE weekly_game_selections_seq INCREMENT BY 50 START WITH 1;
 
 CREATE TABLE app_users
 (
-    id       BIGINT       NOT NULL,
+    id       BIGINT AUTO_INCREMENT      NOT NULL,
     name     VARCHAR(255) NOT NULL,
     email    VARCHAR(255) NOT NULL,
     password VARCHAR(255) NOT NULL,
@@ -17,7 +17,7 @@ CREATE TABLE app_users
 
 CREATE TABLE games
 (
-    id           BIGINT       NOT NULL,
+    id           BIGINT     AUTO_INCREMENT    NOT NULL,
     home_team_id BIGINT       NOT NULL,
     away_team_id BIGINT       NOT NULL,
     week         INT          NOT NULL,
@@ -30,7 +30,7 @@ CREATE TABLE games
 
 CREATE TABLE teams
 (
-    id   BIGINT       NOT NULL,
+    id   BIGINT   AUTO_INCREMENT     NOT NULL,
     name VARCHAR(255) NOT NULL,
     logo BLOB         NULL,
     CONSTRAINT pk_teams PRIMARY KEY (id)
@@ -38,13 +38,13 @@ CREATE TABLE teams
 
 CREATE TABLE users_roles
 (
-    user_id    BIGINT       NOT NULL,
+    user_id    BIGINT    NOT NULL,
     user_roles VARCHAR(255) NULL
 );
 
 CREATE TABLE weekly_game_selections
 (
-    id               BIGINT       NOT NULL,
+    id               BIGINT  AUTO_INCREMENT      NOT NULL,
     user_id          BIGINT       NOT NULL,
     winning_team_id  BIGINT       NOT NULL,
     game_result      VARCHAR(255) NULL,
