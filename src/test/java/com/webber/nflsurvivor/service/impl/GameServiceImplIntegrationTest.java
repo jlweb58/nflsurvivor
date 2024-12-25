@@ -63,6 +63,6 @@ public class GameServiceImplIntegrationTest {
     }
 
     private Team createTeam(String name) {
-        return teamService.create(new Team(name, new byte[]{1, 2, 3, 4}));
+        return teamService.create(new Team(name, name.substring(0, 3)));
     }
 }

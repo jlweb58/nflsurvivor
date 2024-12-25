@@ -53,10 +53,10 @@ public class AbstractWeeklyGameSelectionServiceImplTest {
     public void setUp() {
         user1 = userService.create(new User("test", "test@test.com", "12345"));
         user2 = userService.create(new User("test2", "test2@test.com", "56789"));
-        team1 = teamService.create(new Team("Team1", new byte[] {1, 2, 3, 4, 5}));
-        team2 = teamService.create(new Team("Team2", new byte[] {1, 2, 3, 4, 5}));
-        team3 = teamService.create(new Team("Team3", new byte[] {1, 2, 3, 4, 5}));
-        team4 = teamService.create(new Team("Team4", new byte[] {1, 2, 3, 4, 5}));
+        team1 = teamService.create(new Team("Team1", "te1"));
+        team2 = teamService.create(new Team("Team2", "te2"));
+        team3 = teamService.create(new Team("Team3", "te3"));
+        team4 = teamService.create(new Team("Team4", "te4"));
         weeklyGameSelectionService = new WeeklyGameSelectionServiceImpl(weeklyGameSelectionRepository, dateTimeService);
     }
 

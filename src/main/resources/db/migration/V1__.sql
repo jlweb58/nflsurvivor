@@ -8,7 +8,7 @@ CREATE SEQUENCE weekly_game_selections_seq INCREMENT BY 50 START WITH 1;
 
 CREATE TABLE app_users
 (
-    id       BIGINT AUTO_INCREMENT      NOT NULL,
+    id       BIGINT       NOT NULL AUTO_INCREMENT,
     name     VARCHAR(255) NOT NULL,
     email    VARCHAR(255) NOT NULL,
     password VARCHAR(255) NOT NULL,
@@ -17,7 +17,7 @@ CREATE TABLE app_users
 
 CREATE TABLE games
 (
-    id           BIGINT     AUTO_INCREMENT    NOT NULL,
+    id           BIGINT       NOT NULL AUTO_INCREMENT,
     home_team_id BIGINT       NOT NULL,
     away_team_id BIGINT       NOT NULL,
     week         INT          NOT NULL,
@@ -30,21 +30,15 @@ CREATE TABLE games
 
 CREATE TABLE teams
 (
-    id   BIGINT   AUTO_INCREMENT     NOT NULL,
-    name VARCHAR(255) NOT NULL,
-    logo BLOB         NULL,
+    id           BIGINT       NOT NULL AUTO_INCREMENT,
+    name         VARCHAR(255) NOT NULL,
+    abbreviation VARCHAR(255) NOT NULL,
     CONSTRAINT pk_teams PRIMARY KEY (id)
-);
-
-CREATE TABLE users_roles
-(
-    user_id    BIGINT    NOT NULL,
-    user_roles VARCHAR(255) NULL
 );
 
 CREATE TABLE weekly_game_selections
 (
-    id               BIGINT  AUTO_INCREMENT      NOT NULL,
+    id               BIGINT       NOT NULL AUTO_INCREMENT,
     user_id          BIGINT       NOT NULL,
     winning_team_id  BIGINT       NOT NULL,
     game_result      VARCHAR(255) NULL,
@@ -66,6 +60,3 @@ ALTER TABLE weekly_game_selections
 
 ALTER TABLE weekly_game_selections
     ADD CONSTRAINT FK_WEEKLY_GAME_SELECTIONS_ON_WINNING_TEAM FOREIGN KEY (winning_team_id) REFERENCES teams (id);
-
-ALTER TABLE users_roles
-    ADD CONSTRAINT fk_users_roles_on_user FOREIGN KEY (user_id) REFERENCES app_users (id);

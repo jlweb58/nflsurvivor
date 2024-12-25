@@ -21,7 +21,7 @@ public class TeamServiceImplIntegrationTest {
 
     @Test
     public void testCreateAndFindByName() {
-        Team team = new Team("Seattle Seahawks", new byte[]{0x1, 0x2, 0x3, 0x4});
+        Team team = new Team("Seattle Seahawks", "sea");
         Team created = teamService.create(team);
         assertNotNull(created);
         Team found = teamService.findByName(created.getName());
@@ -30,7 +30,7 @@ public class TeamServiceImplIntegrationTest {
 
     @Test
     public void testCreateAlreadyExists() {
-        Team team = new Team("Seattle Seahawks", new byte[]{0x1, 0x2, 0x3, 0x4});
+        Team team = new Team("Seattle Seahawks", "sea");
         Team created = teamService.create(team);
         assertThrows(IllegalArgumentException.class, () -> teamService.create(created));
     }

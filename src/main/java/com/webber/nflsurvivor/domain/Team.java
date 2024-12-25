@@ -13,16 +13,16 @@ public class Team {
     @Column(name = "name", nullable = false)
     private String name;
 
-    @Column(name = "logo", columnDefinition = "BLOB")
-    private byte[] logo;
+    @Column(name = "abbreviation", nullable = false)
+    private String abbreviation;
 
     protected Team() {
 
     }
 
-    public Team(String name, byte[] logo) {
+    public Team(String name, String abbreviation) {
         this.name = name;
-        this.logo = logo;
+        this.abbreviation = abbreviation;
     }
 
     public Long getId() {
@@ -33,8 +33,8 @@ public class Team {
         return name;
     }
 
-    public byte[] getLogo() {
-        return logo;
+    public String getAbbreviation() {
+        return abbreviation;
     }
 
     @Override
