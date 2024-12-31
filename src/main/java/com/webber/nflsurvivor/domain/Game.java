@@ -1,9 +1,15 @@
 package com.webber.nflsurvivor.domain;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
 
-import java.time.OffsetDateTime;
-import java.time.ZonedDateTime;
+import java.time.Instant;
 
 @Entity
 @Table(name = "games")
@@ -13,6 +19,9 @@ public class Game {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+
+    @Column(name = "espn_id", unique = true)
+    private Long espnId;
 
     @ManyToOne
     @JoinColumn (name = "home_team_id", referencedColumnName = "id", nullable = false)
@@ -26,7 +35,7 @@ public class Game {
     private Integer week;
 
     @Column(name = "start_time", nullable = false)
-    private ZonedDateTime startTime;
+    private Instant startTime;
 
     @Column(name = "home_points")
     private Integer homePoints;
@@ -39,7 +48,7 @@ public class Game {
 
     protected Game() {}
 
-    public Game(Team homeTeam, Team awayTeam, Integer week, ZonedDateTime startTime) {
+    public Game(Team homeTeam, Team awayTeam, Integer week, Instant startTime) {
         this.homeTeam = homeTeam;
         this.awayTeam = awayTeam;
         this.week = week;
@@ -58,12 +67,20 @@ public class Game {
         return week;
     }
 
-    public ZonedDateTime getStartTime() {
+    public Instant getStartTime() {
         return startTime;
     }
 
     public Long getId() {
         return id;
+    }
+
+    public Long getEspnId() {
+        return espnId;
+    }
+
+    public void setEspnId(Long espnId) {
+        this.espnId  = espnId;
     }
 
     public Integer getHomePoints() {

@@ -66,8 +66,8 @@ public class AbstractWeeklyGameSelectionServiceImplTest {
     }
 
     protected WeeklyGameSelection createWeeklyGameSelection(ZonedDateTime gameStartTime, ZonedDateTime userCurrentDateTime) {
-        when(dateTimeService.getCurrentDateTime()).thenReturn(userCurrentDateTime);
-        Game selectedGame1 = gameService.create(new Game(team1, team2, 1, gameStartTime));
+        when(dateTimeService.getCurrentDateTime()).thenReturn(userCurrentDateTime.toInstant());
+        Game selectedGame1 = gameService.create(new Game(team1, team2, 1, gameStartTime.toInstant()));
         return new WeeklyGameSelection(user1, team1, selectedGame1);
     }
 }

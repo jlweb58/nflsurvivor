@@ -11,7 +11,8 @@ import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.ZonedDateTime;
+import java.time.Instant;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 
 @Service
@@ -33,11 +34,11 @@ public class WeeklyGameSelectionServiceImpl implements WeeklyGameSelectionServic
         if (weeklyGameSelection.getId() != null) {
             throw new IllegalArgumentException("WeeklyGameSelection " + weeklyGameSelection + " already exists");
         }
-        ZonedDateTime now = dateTimeService.getCurrentDateTime();
-        now = now.plusMinutes(15);
-        ZonedDateTime gameTime = weeklyGameSelection.getSelectedGame().getStartTime();
+        Instant now = dateTimeService.getCurrentDateTime();
+        now = now.plus(15, ChronoUnit.MINUTES);
+        Instant gameTime = weeklyGameSelection.getSelectedGame().getStartTime();
         if (now.isAfter(gameTime)) {
-            throw new GameWillStartSoonException("Game start time " + gameTime + " is too close to current time: " + now.plusMinutes(15));
+            throw new GameWillStartSoonException("Game start time " + gameTime + " is too close to current time: " + now.plus(15, ChronoUnit.MINUTES));
         }
         List<WeeklyGameSelection> allUserGameSelections = weeklyGameSelectionRepository.findAllByUser(weeklyGameSelection.getUser());
         boolean isTeamAlreadyPicked = allUserGameSelections.stream().anyMatch(s -> s.getWinningTeamSelection().equals(weeklyGameSelection.getWinningTeamSelection()));

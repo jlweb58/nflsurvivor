@@ -1,4 +1,4 @@
-INSERT INTO nfl.teams (name, abbreviation)
+INSERT INTO teams (name, abbreviation)
 VALUES
     ('Bills', 'buf'),
     ('Dolphins', 'mia'),

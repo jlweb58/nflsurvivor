@@ -14,8 +14,8 @@ public class WeeklyGameSelectionServiceImplTimeLogicTest extends AbstractWeeklyG
 
     @Test
     public void testCreateAndFindForUser() throws Exception {
-        when(dateTimeService.getCurrentDateTime()).thenReturn(ZonedDateTime.of(LocalDateTime.of(2024, 10, 10, 9, 0), berlinZone));
-        Game selectedGame = gameService.create(new Game(team1, team2, 1, ZonedDateTime.now()));
+        when(dateTimeService.getCurrentDateTime()).thenReturn(ZonedDateTime.of(LocalDateTime.of(2024, 10, 10, 9, 0), berlinZone).toInstant());
+        Game selectedGame = gameService.create(new Game(team1, team2, 1, Instant.now()));
         WeeklyGameSelection weeklyGameSelection = new WeeklyGameSelection(user1, team1, selectedGame);
         weeklyGameSelection = weeklyGameSelectionService.create(weeklyGameSelection);
         assertNotNull(weeklyGameSelection);
@@ -27,10 +27,10 @@ public class WeeklyGameSelectionServiceImplTimeLogicTest extends AbstractWeeklyG
 
     @Test
     public void testFindForWeek()throws Exception {
-        when(dateTimeService.getCurrentDateTime()).thenReturn(ZonedDateTime.of(LocalDateTime.of(2024, 10, 10, 9, 0), berlinZone));
-        Game selectedGame1 = gameService.create(new Game(team1, team2, 1, ZonedDateTime.now()));
-        Game selectedGame2 = gameService.create(new Game(team3, team4, 1, ZonedDateTime.now()));
-        Game selectedGame3 = gameService.create(new Game(team2, team3, 2, ZonedDateTime.now()));
+        when(dateTimeService.getCurrentDateTime()).thenReturn(ZonedDateTime.of(LocalDateTime.of(2024, 10, 10, 9, 0), berlinZone).toInstant());
+        Game selectedGame1 = gameService.create(new Game(team1, team2, 1, Instant.now()));
+        Game selectedGame2 = gameService.create(new Game(team3, team4, 1, Instant.now()));
+        Game selectedGame3 = gameService.create(new Game(team2, team3, 2, Instant.now()));
         WeeklyGameSelection weeklyGameSelection1 = weeklyGameSelectionService.create(new WeeklyGameSelection(user1, team1, selectedGame1));
         WeeklyGameSelection weeklyGameSelection2 = weeklyGameSelectionService.create(new WeeklyGameSelection(user2, team2, selectedGame2));
         WeeklyGameSelection weeklyGameSelection3 = weeklyGameSelectionService.create(new WeeklyGameSelection(user1, team2, selectedGame3));

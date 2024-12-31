@@ -26,6 +26,8 @@ java {
 	}
 }
 
+
+
 compileJava {
 	sourceCompatibility = 17
 	targetCompatibility = 17
@@ -36,8 +38,7 @@ dependencies {
 	implementation "org.springframework.boot:spring-boot-starter-data-jpa:${springBootVersion}"
 	implementation "org.springframework.boot:spring-boot-starter-data-rest:${springBootVersion}"
 	implementation "org.springframework.boot:spring-boot-starter-security:${springBootVersion}"
-	implementation 'org.flywaydb:flyway-core'
-	implementation 'org.flywaydb:flyway-mysql'
+	implementation "org.springframework.boot:spring-boot-starter-webflux:${springBootVersion}"
 	implementation 'io.jsonwebtoken:jjwt-api:0.12.3'
 	implementation 'io.jsonwebtoken:jjwt-impl:0.12.3'
 	implementation 'io.jsonwebtoken:jjwt-jackson:0.12.3'
