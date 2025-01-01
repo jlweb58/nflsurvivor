@@ -8,4 +8,6 @@ import java.util.List;
 public interface GameRepository extends JpaRepository<Game, Long> {
 
     List<Game> findGamesByWeek(int week);
+
+    Game findGameByEspnId(long espnId);
 }

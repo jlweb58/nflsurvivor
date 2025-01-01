@@ -31,6 +31,9 @@ public class Game {
     @JoinColumn(name = "away_team_id", referencedColumnName = "id", nullable = false)
     private Team awayTeam;
 
+    @Column(name = "year", nullable = false)
+    private Integer year;
+
     @Column(name = "week", nullable = false)
     private Integer week;
 
@@ -81,6 +84,14 @@ public class Game {
 
     public void setEspnId(Long espnId) {
         this.espnId  = espnId;
+    }
+
+    public void setYear(Integer year) {
+        this.year = year;
+    }
+
+    public Integer getYear() {
+        return year;
     }
 
     public Integer getHomePoints() {

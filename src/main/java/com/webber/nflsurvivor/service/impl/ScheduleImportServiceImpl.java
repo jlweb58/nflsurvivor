@@ -81,11 +81,23 @@ public class ScheduleImportServiceImpl implements ScheduleImportService {
         String awayTeamAbbreviation = awayTeamNode.get("team").get("abbreviation").asText();
         Team homeTeam = teamRepository.findByAbbreviationIgnoreCase(homeTeamAbbreviation);
         Team awayTeam = teamRepository.findByAbbreviationIgnoreCase(awayTeamAbbreviation);
-        Long espnId = competitionNode.get("id").asLong();
+        long espnId = competitionNode.get("id").asLong();
         ZonedDateTime zonedDateTime = ZonedDateTime.parse(competitionNode.get("date").asText(), FORMATTER);
-
-        Game game = new Game(homeTeam, awayTeam, week, zonedDateTime.toInstant());
-        game.setEspnId(espnId);
+        Double pointSpread = 0.0;
+        if (competitionNode.get("odds") != null) {
+            JsonNode oddsNode = competitionNode.get("odds");
+            pointSpread = oddsNode.get(0).get("spread").asDouble();
+        }
+        Integer homeScore = homeTeamNode.get("score").asInt();
+        Integer awayScore = awayTeamNode.get("score").asInt();
+        Game game = gameRepository.findGameByEspnId(espnId);
+        if (game == null) {
+            game = new Game(homeTeam, awayTeam, week, zonedDateTime.toInstant());
+            game.setEspnId(espnId);
+        }
+        game.setPointSpread(pointSpread);
+        game.setHomePoints(homeScore);
+        game.setAwayPoints(awayScore);
         gameRepository.save(game);
         return game;
     }
