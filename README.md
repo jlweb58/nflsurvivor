@@ -1,10 +1,5 @@
 # nflsurvivor
 
-Start Mariadb in a docker container:
+Start Mariadb in a docker container (replace version as needed):
 
-docker run -d \
---name mariadb-container \
--e MARIADB_ROOT_PASSWORD=Oneringtorulethemall \
--v ~/mariadb/nfl:/var/lib/mysql \
--p 3306:3306 \
-mariadb:latest \
+docker run -p3306:3306 -d --rm -e MYSQL_ROOT_PASSWORD=Oneringtorulethemall -e MYSQL_DATABASE=nfl jlweb58/jlweb58-repo:nfl-database-dump-0.9.1
