@@ -15,7 +15,6 @@ import java.time.Instant;
 @Table(name = "games")
 public class Game {
 
-
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
@@ -48,6 +47,13 @@ public class Game {
 
     @Column(name = "point_spread")
     private Double pointSpread;
+
+    @Column(name = "finished")
+    private boolean finished = false;
+
+    @ManyToOne
+    @JoinColumn(name = "venue_id", referencedColumnName = "id", nullable = false)
+    private Stadium venue;
 
     protected Game() {}
 
@@ -82,12 +88,14 @@ public class Game {
         return espnId;
     }
 
-    public void setEspnId(Long espnId) {
+    public Game setEspnId(Long espnId) {
         this.espnId  = espnId;
+        return this;
     }
 
-    public void setYear(Integer year) {
+    public Game setYear(Integer year) {
         this.year = year;
+        return this;
     }
 
     public Integer getYear() {
@@ -102,6 +110,16 @@ public class Game {
         this.homePoints = homePoints;
         return this;
     }
+
+    public boolean isFinished() {
+        return finished;
+    }
+
+    public Game setFinished(boolean finished) {
+        this.finished = finished;
+        return this;
+    }
+
 
     public Integer getAwayPoints() {
         return awayPoints;
@@ -121,14 +139,28 @@ public class Game {
         return this;
     }
 
+    public Stadium getVenue() {
+        return venue;
+    }
+
+    public Game setVenue(Stadium venue) {
+        this.venue = venue;
+        return this;
+    }
+
     @Override
     public String toString() {
         return "Game{" +
                 "id=" + id +
+                ", espnId=" + espnId +
                 ", homeTeam=" + homeTeam +
                 ", awayTeam=" + awayTeam +
+                ", year=" + year +
                 ", week=" + week +
                 ", startTime=" + startTime +
+                ", homePoints=" + homePoints +
+                ", awayPoints=" + awayPoints +
+                ", pointSpread=" + pointSpread +
                 '}';
     }
 }

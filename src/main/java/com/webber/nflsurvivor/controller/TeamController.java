@@ -1,13 +1,11 @@
 package com.webber.nflsurvivor.controller;
 
 import com.webber.nflsurvivor.domain.Team;
+import com.webber.nflsurvivor.domain.WeeklyTeamScore;
 import com.webber.nflsurvivor.service.TeamService;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -28,6 +26,11 @@ public class TeamController {
     @GetMapping
     public List<Team> getTeams() {
         return teamService.findAll();
+    }
+
+    @GetMapping(path="/{teamId}")
+    public WeeklyTeamScore getWeeklyTeamScore(@PathVariable Long teamId, @RequestParam int week) {
+        return teamService.getWeeklyTeamScoreByTeamId(teamId, week);
     }
 
 }

@@ -16,6 +16,8 @@ public class Team {
     @Column(name = "abbreviation", nullable = false)
     private String abbreviation;
 
+    private transient WeeklyTeamScore weeklyTeamScore;
+
     protected Team() {
 
     }
@@ -35,6 +37,14 @@ public class Team {
 
     public String getAbbreviation() {
         return abbreviation;
+    }
+
+    public void setWeeklyTeamScore(WeeklyTeamScore weeklyTeamScore) {
+        this.weeklyTeamScore = weeklyTeamScore;
+    }
+
+    public WeeklyTeamScore getWeeklyTeamScore() {
+        return weeklyTeamScore;
     }
 
     @Override

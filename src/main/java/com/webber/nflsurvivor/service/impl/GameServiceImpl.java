@@ -1,12 +1,15 @@
 package com.webber.nflsurvivor.service.impl;
 
 import com.webber.nflsurvivor.domain.Game;
+import com.webber.nflsurvivor.domain.WeeklyTeamScore;
 import com.webber.nflsurvivor.repository.GameRepository;
 import com.webber.nflsurvivor.service.GameService;
+import com.webber.nflsurvivor.service.TeamService;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -14,10 +17,12 @@ import java.util.List;
 public class GameServiceImpl implements GameService {
 
     private final GameRepository gameRepository;
+    private final TeamService teamService;
 
     @Autowired
-    public GameServiceImpl(GameRepository gameRepository) {
+    public GameServiceImpl(GameRepository gameRepository, TeamService teamService) {
         this.gameRepository = gameRepository;
+        this.teamService = teamService;
     }
 
     @Override
@@ -30,6 +35,14 @@ public class GameServiceImpl implements GameService {
 
     @Override
     public List<Game> findGamesForWeek(int week) {
-        return gameRepository.findGamesByWeek(week);
+        List<Game> games = gameRepository.findGamesByWeek(week);
+        games.forEach(game->{
+            WeeklyTeamScore awayTeamScore = teamService.getWeeklyTeamScoreByTeamId(game.getAwayTeam().getId(), week);
+            WeeklyTeamScore homeTeamScore = teamService.getWeeklyTeamScoreByTeamId(game.getHomeTeam().getId(), week);
+            game.getAwayTeam().setWeeklyTeamScore(awayTeamScore);
+            game.getHomeTeam().setWeeklyTeamScore(homeTeamScore);
+        });
+
+        return games;
     }
 }

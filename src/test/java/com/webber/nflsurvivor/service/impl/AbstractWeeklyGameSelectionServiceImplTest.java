@@ -1,10 +1,8 @@
 package com.webber.nflsurvivor.service.impl;
 
 import com.webber.nflsurvivor.SurvivorApplication;
-import com.webber.nflsurvivor.domain.Game;
-import com.webber.nflsurvivor.domain.Team;
-import com.webber.nflsurvivor.domain.User;
-import com.webber.nflsurvivor.domain.WeeklyGameSelection;
+import com.webber.nflsurvivor.domain.*;
+import com.webber.nflsurvivor.repository.StadiumRepository;
 import com.webber.nflsurvivor.repository.WeeklyGameSelectionRepository;
 import com.webber.nflsurvivor.service.DateTimeService;
 import com.webber.nflsurvivor.service.GameService;
@@ -49,6 +47,11 @@ public class AbstractWeeklyGameSelectionServiceImplTest {
     protected Team team3;
     protected Team team4;
 
+    protected Stadium stadium;
+
+    @Autowired
+    private StadiumRepository stadiumRepository;
+
     @BeforeEach
     public void setUp() {
         user1 = userService.create(new User("test", "test@test.com", "12345"));
@@ -57,6 +60,7 @@ public class AbstractWeeklyGameSelectionServiceImplTest {
         team2 = teamService.create(new Team("Team2", "te2"));
         team3 = teamService.create(new Team("Team3", "te3"));
         team4 = teamService.create(new Team("Team4", "te4"));
+        stadium = stadiumRepository.save(new Stadium(1234L, "Doghouse Stadium", "America/New_York"));
         weeklyGameSelectionService = new WeeklyGameSelectionServiceImpl(weeklyGameSelectionRepository, dateTimeService);
     }
 
@@ -67,7 +71,8 @@ public class AbstractWeeklyGameSelectionServiceImplTest {
 
     protected WeeklyGameSelection createWeeklyGameSelection(ZonedDateTime gameStartTime, ZonedDateTime userCurrentDateTime) {
         when(dateTimeService.getCurrentDateTime()).thenReturn(userCurrentDateTime.toInstant());
-        Game selectedGame1 = gameService.create(new Game(team1, team2, 1, gameStartTime.toInstant()));
+        Game selectedGame1 = new Game(team1, team2, 1, gameStartTime.toInstant()).setYear(2024).setVenue(stadium);
+        gameService.create(selectedGame1);
         return new WeeklyGameSelection(user1, team1, selectedGame1);
     }
 }

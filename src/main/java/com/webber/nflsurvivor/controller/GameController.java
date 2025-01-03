@@ -33,7 +33,6 @@ public class GameController {
 
     @GetMapping
     public List<Game> getGamesForYearAndWeek(@RequestParam int year, @RequestParam int week) {
-        LOG.info("getGamesForYearAndWeek - " + year + " " + week);
         return gameService.findGamesForWeek(week);
     }
 

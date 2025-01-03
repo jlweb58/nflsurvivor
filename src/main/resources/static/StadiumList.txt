@@ -1,0 +1,37 @@
+ESPN ID Stadium Name	Home Team(s)	Time Zone
+3752    Acrisure Stadium    Pittsburgh Steelers  America/New_York
+6501    Allegiant Stadium   Las Vegas Raiders   America/Los_Angeles
+3622    GEHA Field at Arrowhead Stadium Kansas City Chiefs	America/Chicago
+3687    AT&T Stadium	Dallas Cowboys	America/Chicago
+3628    Bank of America Stadium	Carolina Panthers	America/New_York
+3493    Caesars Superdome	New Orleans Saints	America/Chicago
+3937    Empower Field at Mile High	Denver Broncos	America/Denver
+3712    EverBank Stadium    Jacksonville Jaguars    America/New_York
+3719    Northwest Stadium	Washington Commanders	America/New_York
+3727    Ford Field	Detroit Lions	America/Detroit
+3738    Gillette Stadium	New England Patriots	America/New_York
+3948    Hard Rock Stadium	Miami Dolphins	America/New_York
+3883    Highmark Stadium    Buffalo Bills   America/New_York
+3679    Huntington Bank Field   Cleveland Browns    America/New_York
+3798    Lambeau Field	Green Bay Packers	America/Chicago
+4738    Levi's Stadium	San Francisco 49ers	America/Los_Angeles
+3806    Lincoln Financial Field	Philadelphia Eagles	America/New_York
+3812    Lucas Oil Stadium   Indianapolis Colts  America/New_York
+3673    Lumen Field	Seattle Seahawks	America/Los_Angeles
+3814    M&T Bank Stadium	Baltimore Ravens	America/New_York
+5348    Mercedes-Benz Stadium	Atlanta Falcons	America/New_York
+3839    MetLife Stadium	New York Giants, New York Jets	America/New_York
+3810    Nissan Stadium	Tennessee Titans	America/Chicago
+3891    NRG Stadium	Houston Texans	America/Chicago
+3874    Paycore Stadium	Cincinnati Bengals	America/New_York
+3886    Raymond James Stadium	Tampa Bay Buccaneers	America/New_York
+7065    SoFi Stadium	Los Angeles Rams, Los Angeles Chargers	America/Los_Angeles
+3933    Soldier Field	Chicago Bears	America/Chicago
+3970    State Farm Stadium	Arizona Cardinals	America/Phoenix
+5239    U.S. Bank Stadium	Minnesota Vikings	America/Chicago
+
+8748    Arena Corinthians	São Paulo, Brazil	Green Bay Packers vs. Philadelphia Eagles	America/Sao_Paulo
+5534    Tottenham Hotspur Stadium	London, U.K.	New York Jets vs. Minnesota Vikings	Europe/London
+5534    Tottenham Hotspur Stadium	London, U.K.	Jacksonville Jaguars vs. Chicago Bears	Europe/London
+2455    Wembley Stadium	London, U.K.	Jacksonville Jaguars vs. Atlanta Falcons	Europe/London
+1775    Allianz Arena	Munich, Germany	New York Giants vs. Carolina Panthers	Europe/Berlin

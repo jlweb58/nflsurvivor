@@ -6,7 +6,7 @@ import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @SpringBootApplication
-@EntityScan
+@EntityScan(basePackages = "com.webber.nflsurvivor.domain")
 public class SurvivorApplication {
 
 	public static void main(String[] args) {

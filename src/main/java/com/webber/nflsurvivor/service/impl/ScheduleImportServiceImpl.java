@@ -3,8 +3,10 @@ package com.webber.nflsurvivor.service.impl;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.webber.nflsurvivor.domain.Game;
+import com.webber.nflsurvivor.domain.Stadium;
 import com.webber.nflsurvivor.domain.Team;
 import com.webber.nflsurvivor.repository.GameRepository;
+import com.webber.nflsurvivor.repository.StadiumRepository;
 import com.webber.nflsurvivor.repository.TeamRepository;
 import com.webber.nflsurvivor.service.ScheduleImportService;
 import org.slf4j.Logger;
@@ -29,18 +31,22 @@ public class ScheduleImportServiceImpl implements ScheduleImportService {
 
     private final TeamRepository teamRepository;
 
+    private final GameRepository gameRepository;
+
+    private final StadiumRepository stadiumRepository;
+
     private static final Logger LOG = LoggerFactory.getLogger(ScheduleImportServiceImpl.class);
 
     private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mmX");
 
-    private final GameRepository gameRepository;
 
 
     @Autowired
-    public ScheduleImportServiceImpl(WebClient.Builder webClientBuilder, TeamRepository teamRepository, GameRepository gameRepository) {
+    public ScheduleImportServiceImpl(WebClient.Builder webClientBuilder, TeamRepository teamRepository, GameRepository gameRepository, StadiumRepository stadiumRepository) {
         this.webClient = webClientBuilder.baseUrl(ESPN_BASE_URL).build();
         this.teamRepository = teamRepository;
         this.gameRepository = gameRepository;
+        this.stadiumRepository = stadiumRepository;
     }
 
     @Override
@@ -67,21 +73,26 @@ public class ScheduleImportServiceImpl implements ScheduleImportService {
     private Set<Game> parseJsonToGames(JsonNode rootNode, Integer week) {
         Set<Game> allGamesForWeek = new HashSet<>();
         for (JsonNode jsonNode : rootNode.get("events")) {
+            String status = jsonNode.get("status").get("type").get("name").asText();
             Iterator<JsonNode> competitionsIterator = jsonNode.get("competitions").iterator();
-            allGamesForWeek.add(parseGameFromJsonNode(competitionsIterator.next(), week));
+
+            allGamesForWeek.add(parseGameFromJsonNode(competitionsIterator.next(), week, status));
         }
 
         return allGamesForWeek;
     }
 
-    private Game parseGameFromJsonNode(JsonNode competitionNode, Integer week) {
+    private Game parseGameFromJsonNode(JsonNode competitionNode, Integer week, String status) {
         JsonNode homeTeamNode = competitionNode.get("competitors").get(0);
         JsonNode awayTeamNode = competitionNode.get("competitors").get(1);
         String homeTeamAbbreviation = homeTeamNode.get("team").get("abbreviation").asText();
         String awayTeamAbbreviation = awayTeamNode.get("team").get("abbreviation").asText();
         Team homeTeam = teamRepository.findByAbbreviationIgnoreCase(homeTeamAbbreviation);
         Team awayTeam = teamRepository.findByAbbreviationIgnoreCase(awayTeamAbbreviation);
-        long espnId = competitionNode.get("id").asLong();
+        long gameEspnId = competitionNode.get("id").asLong();
+        JsonNode venueNode = competitionNode.get("venue");
+        long venueEspnId = venueNode.get("id").asLong();
+        Stadium stadium = stadiumRepository.findByEspnId(venueEspnId);
         ZonedDateTime zonedDateTime = ZonedDateTime.parse(competitionNode.get("date").asText(), FORMATTER);
         Double pointSpread = 0.0;
         if (competitionNode.get("odds") != null) {
@@ -90,14 +101,18 @@ public class ScheduleImportServiceImpl implements ScheduleImportService {
         }
         Integer homeScore = homeTeamNode.get("score").asInt();
         Integer awayScore = awayTeamNode.get("score").asInt();
-        Game game = gameRepository.findGameByEspnId(espnId);
+        Game game = gameRepository.findGameByEspnId(gameEspnId);
         if (game == null) {
             game = new Game(homeTeam, awayTeam, week, zonedDateTime.toInstant());
-            game.setEspnId(espnId);
+            game.setEspnId(gameEspnId);
         }
         game.setPointSpread(pointSpread);
         game.setHomePoints(homeScore);
         game.setAwayPoints(awayScore);
+        game.setVenue(stadium);
+        if("STATUS_FINAL".equals(status)) {
+            game.setFinished(true);
+        }
         gameRepository.save(game);
         return game;
     }
