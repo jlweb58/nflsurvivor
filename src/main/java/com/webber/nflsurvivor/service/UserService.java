@@ -1,5 +1,6 @@
 package com.webber.nflsurvivor.service;
 
+import com.webber.nflsurvivor.controller.UserNotFoundException;
 import com.webber.nflsurvivor.domain.User;
 
 public interface UserService {
@@ -28,5 +29,8 @@ public interface UserService {
      * @throws SecurityException if the old password is not correct
      */
     void changePassword(User user, String oldPassword, String newPassword);
+
+    User getCurrentUser() throws UserNotFoundException;
+
 
 }
