@@ -17,10 +17,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
+import java.util.Set;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")
@@ -49,7 +53,6 @@ public class WeeklyGameSelectionController {
 
     @PostMapping(path = "/{gameId}/{teamId}")
     public ResponseEntity<String> createWeeklyGameSelection(@PathVariable Long gameId, @PathVariable Long teamId)  {
-        LOG.info("creating weekly game selection for game " + gameId + ", team " + teamId);
         User user = null;
         try {
             user = userService.getCurrentUser();
@@ -65,6 +68,12 @@ public class WeeklyGameSelectionController {
             throw new RuntimeException(e);
         }
         return ResponseEntity.status(HttpStatus.OK).body("Successfully created selection");
+    }
+
+    @GetMapping
+    public ResponseEntity<List<WeeklyGameSelection>> getAllForUser() throws UserNotFoundException {
+        User user = userService.getCurrentUser();
+        return ResponseEntity.status(HttpStatus.OK).body(weeklyGameSelectionService.findForUser(user));
     }
 
 }

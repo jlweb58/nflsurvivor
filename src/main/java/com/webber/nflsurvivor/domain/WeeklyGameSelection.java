@@ -26,6 +26,9 @@ public class WeeklyGameSelection {
     @JoinColumn(name = "selected_game_id", referencedColumnName = "id", nullable = false)
     private Game selectedGame;
 
+    @Column(name = "week", nullable = false)
+    private int week;
+
     protected WeeklyGameSelection() {
 
     }
@@ -34,6 +37,7 @@ public class WeeklyGameSelection {
         this.user = user;
         this.winningTeamSelection = winningTeamSelection;
         this.selectedGame = selectedGame;
+        this.week = selectedGame.getWeek();
     }
 
     public Long getId() {
@@ -51,6 +55,8 @@ public class WeeklyGameSelection {
     public Game getSelectedGame() {
         return selectedGame;
     }
+
+    public int getWeek() { return week; }
 
     public GameResult getGameResult() {
         return gameResult;

@@ -16,6 +16,9 @@ public class Team {
     @Column(name = "abbreviation", nullable = false)
     private String abbreviation;
 
+    @Column(name = "city")
+    private String city;
+
     private transient WeeklyTeamScore weeklyTeamScore;
 
     protected Team() {
@@ -46,6 +49,15 @@ public class Team {
     public WeeklyTeamScore getWeeklyTeamScore() {
         return weeklyTeamScore;
     }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
 
     @Override
     public String toString() {

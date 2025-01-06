@@ -4,8 +4,10 @@ import com.webber.nflsurvivor.domain.GameWillStartSoonException;
 import com.webber.nflsurvivor.domain.TeamAlreadySelectedException;
 import com.webber.nflsurvivor.domain.User;
 import com.webber.nflsurvivor.domain.WeeklyGameSelection;
+import com.webber.nflsurvivor.domain.WeeklyTeamScore;
 import com.webber.nflsurvivor.repository.WeeklyGameSelectionRepository;
 import com.webber.nflsurvivor.service.DateTimeService;
+import com.webber.nflsurvivor.service.TeamService;
 import com.webber.nflsurvivor.service.WeeklyGameSelectionService;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,11 +24,13 @@ public class WeeklyGameSelectionServiceImpl implements WeeklyGameSelectionServic
     private final WeeklyGameSelectionRepository weeklyGameSelectionRepository;
 
     private final DateTimeService dateTimeService;
+    private final TeamService teamService;
 
     @Autowired
-    public WeeklyGameSelectionServiceImpl(WeeklyGameSelectionRepository weeklyGameSelectionRepository, DateTimeService dateTimeService) {
+    public WeeklyGameSelectionServiceImpl(WeeklyGameSelectionRepository weeklyGameSelectionRepository, DateTimeService dateTimeService, TeamService teamService) {
         this.weeklyGameSelectionRepository = weeklyGameSelectionRepository;
         this.dateTimeService = dateTimeService;
+        this.teamService = teamService;
     }
 
     @Override
@@ -50,7 +54,12 @@ public class WeeklyGameSelectionServiceImpl implements WeeklyGameSelectionServic
 
     @Override
     public List<WeeklyGameSelection> findForUser(User user) {
-        return weeklyGameSelectionRepository.findAllByUser(user);
+        List<WeeklyGameSelection> weeklyGameSelections = weeklyGameSelectionRepository.findAllByUser(user);
+        weeklyGameSelections.forEach(wgs -> {
+            WeeklyTeamScore selectedTeamScore = teamService.getWeeklyTeamScoreByTeamId(wgs.getWinningTeamSelection().getId(), wgs.getWeek());
+            wgs.getWinningTeamSelection().setWeeklyTeamScore(selectedTeamScore);
+        });
+        return weeklyGameSelections;
     }
 
     @Override
