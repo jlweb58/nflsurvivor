@@ -2,6 +2,7 @@ package com.webber.nflsurvivor.service;
 
 import com.webber.nflsurvivor.controller.UserNotFoundException;
 import com.webber.nflsurvivor.domain.User;
+import com.webber.nflsurvivor.domain.UserAlreadyExistsException;
 
 public interface UserService {
 
@@ -17,7 +18,7 @@ public interface UserService {
      * @param user  The user, may not be already persistent
      * @return  The persisted user
      */
-    User create(User user);
+    User create(User user) throws UserAlreadyExistsException;
 
     /**
      * Change the password of the given user

@@ -1,6 +1,7 @@
 package com.webber.nflsurvivor.controller;
 
 import com.webber.nflsurvivor.domain.User;
+import com.webber.nflsurvivor.domain.UserAlreadyExistsException;
 import com.webber.nflsurvivor.service.UserService;
 import jakarta.transaction.Transactional;
 import org.slf4j.Logger;
@@ -39,6 +40,12 @@ public class UserController {
             LOG.warn("Couldn't change password", e);
             return ResponseEntity.status(403).body(new ChangePasswordResponse(true, "Old password incorrect"));
         }
+    }
+
+    @PostMapping(path="/register", produces = "application/json")
+    public ResponseEntity<RegisterUserResponse> registerUser(@RequestBody RegisterUserRequest registerUserRequest) throws UserAlreadyExistsException {
+        userService.create(new User(registerUserRequest.name(), registerUserRequest.username(), registerUserRequest.password()));
+        return ResponseEntity.ok(new RegisterUserResponse(false, "User registered successfully"));
     }
 
 }

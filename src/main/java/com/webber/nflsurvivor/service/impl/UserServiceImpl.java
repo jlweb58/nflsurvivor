@@ -2,6 +2,7 @@ package com.webber.nflsurvivor.service.impl;
 
 import com.webber.nflsurvivor.controller.UserNotFoundException;
 import com.webber.nflsurvivor.domain.User;
+import com.webber.nflsurvivor.domain.UserAlreadyExistsException;
 import com.webber.nflsurvivor.repository.UserRepository;
 import com.webber.nflsurvivor.service.UserService;
 import jakarta.transaction.Transactional;
@@ -33,9 +34,13 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User create(User user) {
+    public User create(User user) throws UserAlreadyExistsException {
         if (user.getId() != null) {
             throw new IllegalArgumentException("User with email " + user.getEmail() + " already exists");
+        }
+        User existingUser = userRepository.findByEmail(user.getEmail());
+        if (existingUser != null) {
+            throw new UserAlreadyExistsException("User with email " + user.getEmail() + " already exists");
         }
         String password = user.getPassword();
         PasswordEncoder encoder = new BCryptPasswordEncoder();

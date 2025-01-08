@@ -24,7 +24,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
-import java.util.Set;
+import java.util.Map;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")
@@ -52,7 +52,7 @@ public class WeeklyGameSelectionController {
     }
 
     @PostMapping(path = "/{gameId}/{teamId}")
-    public ResponseEntity<String> createWeeklyGameSelection(@PathVariable Long gameId, @PathVariable Long teamId)  {
+    public ResponseEntity<Map<String, String>> createWeeklyGameSelection(@PathVariable Long gameId, @PathVariable Long teamId)  {
         User user = null;
         try {
             user = userService.getCurrentUser();
@@ -67,7 +67,7 @@ public class WeeklyGameSelectionController {
         } catch (GameWillStartSoonException | TeamAlreadySelectedException e) {
             throw new RuntimeException(e);
         }
-        return ResponseEntity.status(HttpStatus.OK).body("Successfully created selection");
+        return ResponseEntity.status(HttpStatus.OK).body(Map.of("message", "Successfully created selection"));
     }
 
     @GetMapping
