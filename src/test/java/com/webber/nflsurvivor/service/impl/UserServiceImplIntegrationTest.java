@@ -20,7 +20,7 @@ public class UserServiceImplIntegrationTest {
     private UserService userService;
 
     @Test
-    public void testCreateAndFindByEmail() {
+    public void testCreateAndFindByEmail() throws Exception {
         User user = new User("testname", "test@test.com", "password");
         User created = userService.create(user);
         assertNotNull(created);
@@ -29,7 +29,7 @@ public class UserServiceImplIntegrationTest {
     }
 
     @Test
-    public void testCreateAlreadyExists() {
+    public void testCreateAlreadyExists() throws Exception {
         User user = new User("testname", "test@test.com", "password");
         User created = userService.create(user);
         assertThrows(IllegalArgumentException.class, () -> userService.create(created));

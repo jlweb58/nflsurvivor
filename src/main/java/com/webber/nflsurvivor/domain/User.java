@@ -1,5 +1,6 @@
 package com.webber.nflsurvivor.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 
 import java.util.ArrayList;
@@ -29,6 +30,10 @@ public class User {
     @CollectionTable(name = "users_roles", joinColumns = @JoinColumn(name = "user_id"))
     @Enumerated(EnumType.STRING)
     private Set<UserRole> userRoles = new HashSet<>();
+
+    @ManyToMany(mappedBy = "poolMembers")
+    @JsonIgnoreProperties("poolMembers")
+    private Set<Pool> pools = new HashSet<>();
 
     protected User() {
     }
@@ -83,4 +88,17 @@ public class User {
         return name;
     }
 
+    public Set<Pool> getPools() {
+        return pools;
+    }
+
+    public User setPools(Set<Pool> pools) {
+        this.pools = pools;
+        return this;
+    }
+
+    public User addPool(Pool pool) {
+        pools.add(pool);
+        return this;
+    }
 }

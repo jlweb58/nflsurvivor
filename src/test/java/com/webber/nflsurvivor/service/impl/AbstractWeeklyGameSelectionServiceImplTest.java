@@ -53,7 +53,7 @@ public class AbstractWeeklyGameSelectionServiceImplTest {
     private StadiumRepository stadiumRepository;
 
     @BeforeEach
-    public void setUp() {
+    public void setUp() throws Exception {
         user1 = userService.create(new User("test", "test@test.com", "12345"));
         user2 = userService.create(new User("test2", "test2@test.com", "56789"));
         team1 = teamService.create(new Team("Team1", "te1"));
@@ -61,7 +61,7 @@ public class AbstractWeeklyGameSelectionServiceImplTest {
         team3 = teamService.create(new Team("Team3", "te3"));
         team4 = teamService.create(new Team("Team4", "te4"));
         stadium = stadiumRepository.save(new Stadium(1234L, "Doghouse Stadium", "America/New_York"));
-        weeklyGameSelectionService = new WeeklyGameSelectionServiceImpl(weeklyGameSelectionRepository, dateTimeService);
+        weeklyGameSelectionService = new WeeklyGameSelectionServiceImpl(weeklyGameSelectionRepository, dateTimeService, teamService);
     }
 
     protected ZonedDateTime convertGameTimeWithOffset(ZonedDateTime gameTime, int offsetMinutes) {
