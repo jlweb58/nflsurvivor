@@ -53,7 +53,7 @@ public class UserServiceImpl implements UserService {
         if (newPassword == null) {
             throw new SecurityException("New password may not be empty");
         }
-        user = userRepository.findById((Long) user.getId()).get();
+        user = userRepository.findById(user.getId()).get();
         PasswordEncoder encoder = new BCryptPasswordEncoder();
         boolean matches = encoder.matches(oldPassword, user.getPassword());
         if (!matches) {
@@ -72,7 +72,6 @@ public class UserServiceImpl implements UserService {
     public User getCurrentUser() throws UserNotFoundException {
         UserDetails userDetails =
                 (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        LOG.info("Current user is " + userDetails.getUsername());
         User user = userRepository.findByEmail(userDetails.getUsername());
         if (user == null) {
             throw new UserNotFoundException("No user found for username " + userDetails.getUsername());
