@@ -31,6 +31,10 @@ public class PoolServiceImpl implements PoolService {
         return new HashSet<>(poolRepository.findAll());
     }
 
+    @Override
+    public Pool find(Long poolId) {
+        return poolRepository.getReferenceById(poolId);
+    }
 
 
 }

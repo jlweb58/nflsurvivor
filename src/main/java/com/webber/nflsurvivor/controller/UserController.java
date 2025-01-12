@@ -1,7 +1,9 @@
 package com.webber.nflsurvivor.controller;
 
+import com.webber.nflsurvivor.domain.Pool;
 import com.webber.nflsurvivor.domain.User;
 import com.webber.nflsurvivor.domain.UserAlreadyExistsException;
+import com.webber.nflsurvivor.service.PoolService;
 import com.webber.nflsurvivor.service.UserService;
 import jakarta.transaction.Transactional;
 import org.slf4j.Logger;
@@ -24,9 +26,12 @@ public class UserController {
 
     private final UserService userService;
 
+    private final PoolService poolService;
+
     @Autowired
-    public UserController(UserService userService) {
+    public UserController(UserService userService, PoolService poolService) {
         this.userService = userService;
+        this.poolService = poolService;
     }
 
     @PostMapping(path = "/password", produces = "application/json")
@@ -44,7 +49,10 @@ public class UserController {
 
     @PostMapping(path="/register", produces = "application/json")
     public ResponseEntity<RegisterUserResponse> registerUser(@RequestBody RegisterUserRequest registerUserRequest) throws UserAlreadyExistsException {
-        userService.create(new User(registerUserRequest.name(), registerUserRequest.username(), registerUserRequest.password()));
+
+        User newRegisteredUser = userService.create(new User(registerUserRequest.name(), registerUserRequest.username(), registerUserRequest.password()));
+        Pool poolForNewUser = poolService.find(registerUserRequest.poolId());
+        poolForNewUser.addPoolMember(newRegisteredUser);
         return ResponseEntity.ok(new RegisterUserResponse(false, "User registered successfully"));
     }
 

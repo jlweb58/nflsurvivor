@@ -10,4 +10,6 @@ public interface PoolService {
     Pool create(Pool pool);
 
     Set<Pool> loadAll();
+
+    Pool find(Long poolId);
 }
