@@ -71,8 +71,14 @@ public class WeeklyGameSelectionController {
     }
 
     @GetMapping
-    public ResponseEntity<List<WeeklyGameSelection>> getAllForUser() throws UserNotFoundException {
+    public ResponseEntity<List<WeeklyGameSelection>> getAllForCurrentUser() throws UserNotFoundException {
         User user = userService.getCurrentUser();
+        return ResponseEntity.status(HttpStatus.OK).body(weeklyGameSelectionService.findForUser(user));
+    }
+
+    @GetMapping(path = "/{userId}")
+    public ResponseEntity<List<WeeklyGameSelection>> getAllForUser(@PathVariable Long userId) throws UserNotFoundException {
+        User user = userService.findUserById(userId);
         return ResponseEntity.status(HttpStatus.OK).body(weeklyGameSelectionService.findForUser(user));
     }
 

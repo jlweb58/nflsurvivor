@@ -33,5 +33,5 @@ public interface UserService {
 
     User getCurrentUser() throws UserNotFoundException;
 
-
+    User findUserById(Long id);
 }

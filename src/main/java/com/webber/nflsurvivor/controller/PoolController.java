@@ -34,8 +34,4 @@ public class PoolController {
         Set<Pool> allPools = poolService.loadAll();
         return ResponseEntity.ok(allPools);
     }
-
-
-
-
 }

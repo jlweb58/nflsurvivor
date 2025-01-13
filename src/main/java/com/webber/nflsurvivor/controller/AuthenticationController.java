@@ -1,7 +1,9 @@
 package com.webber.nflsurvivor.controller;
 
+import com.webber.nflsurvivor.domain.Pool;
 import com.webber.nflsurvivor.security.JwtService;
 import com.webber.nflsurvivor.security.UserDetailsImpl;
+import com.webber.nflsurvivor.service.PoolService;
 import jakarta.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,6 +32,9 @@ public class AuthenticationController {
     @Autowired
     JwtService jwtService;
 
+    @Autowired
+    private PoolService poolService;
+
     private static final Logger LOG = LoggerFactory.getLogger(AuthenticationController.class);
 
     @PostMapping("/login")
@@ -43,10 +48,11 @@ public class AuthenticationController {
         List<String> roles = userDetails.getAuthorities().stream()
                 .map(GrantedAuthority::getAuthority)
                 .collect(Collectors.toList());
-
+        List<Pool> pools = poolService.findByUserId(userDetails.getId());
         return ResponseEntity.ok(new JwtResponse(jwt,
                 userDetails.getId(),
                 userDetails.getUsername(),
-                roles));
+                roles,
+                pools));
     }
 }

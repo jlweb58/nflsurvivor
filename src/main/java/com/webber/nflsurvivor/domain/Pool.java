@@ -1,6 +1,8 @@
 package com.webber.nflsurvivor.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
@@ -23,7 +25,8 @@ public class Pool {
             joinColumns =  @JoinColumn(name = "pool_id"),
             inverseJoinColumns = @JoinColumn(name = "user_id")
     )
-    @JsonIgnoreProperties("pools")
+
+    @JsonManagedReference
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Set<User> poolMembers = new HashSet<>();
 
