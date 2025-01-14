@@ -1,4 +1,4 @@
-package com.webber.nflsurvivor.domain;
+package com.webber.nflsurvivor.game;
 
 public enum GameResult {
     WIN,

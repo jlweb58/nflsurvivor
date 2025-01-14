@@ -1,9 +1,9 @@
 package com.webber.nflsurvivor.service.impl;
 
-import com.webber.nflsurvivor.domain.Game;
+import com.webber.nflsurvivor.game.Game;
 import com.webber.nflsurvivor.domain.Team;
 import com.webber.nflsurvivor.domain.WeeklyTeamScore;
-import com.webber.nflsurvivor.repository.GameRepository;
+import com.webber.nflsurvivor.game.GameRepository;
 import com.webber.nflsurvivor.repository.TeamRepository;
 import com.webber.nflsurvivor.service.TeamService;
 import jakarta.transaction.Transactional;

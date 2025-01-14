@@ -1,12 +1,12 @@
 package com.webber.nflsurvivor.service.impl;
 
 import com.webber.nflsurvivor.SurvivorApplication;
-import com.webber.nflsurvivor.domain.Game;
+import com.webber.nflsurvivor.game.Game;
 import com.webber.nflsurvivor.domain.Stadium;
 import com.webber.nflsurvivor.domain.Team;
 import com.webber.nflsurvivor.domain.WeeklyTeamScore;
 import com.webber.nflsurvivor.repository.StadiumRepository;
-import com.webber.nflsurvivor.service.GameService;
+import com.webber.nflsurvivor.game.GameService;
 import com.webber.nflsurvivor.service.TeamService;
 import jakarta.transaction.Transactional;
 import org.junit.jupiter.api.Test;

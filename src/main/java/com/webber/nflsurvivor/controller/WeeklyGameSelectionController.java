@@ -1,12 +1,12 @@
 package com.webber.nflsurvivor.controller;
 
-import com.webber.nflsurvivor.domain.Game;
+import com.webber.nflsurvivor.game.Game;
 import com.webber.nflsurvivor.domain.GameWillStartSoonException;
 import com.webber.nflsurvivor.domain.Team;
 import com.webber.nflsurvivor.domain.TeamAlreadySelectedException;
 import com.webber.nflsurvivor.user.User;
 import com.webber.nflsurvivor.domain.WeeklyGameSelection;
-import com.webber.nflsurvivor.repository.GameRepository;
+import com.webber.nflsurvivor.game.GameRepository;
 import com.webber.nflsurvivor.repository.TeamRepository;
 import com.webber.nflsurvivor.user.UserService;
 import com.webber.nflsurvivor.service.WeeklyGameSelectionService;

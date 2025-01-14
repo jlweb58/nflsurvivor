@@ -1,6 +1,5 @@
-package com.webber.nflsurvivor.repository;
+package com.webber.nflsurvivor.game;
 
-import com.webber.nflsurvivor.game.Game;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 

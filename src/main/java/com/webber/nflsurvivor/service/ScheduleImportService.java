@@ -1,6 +1,6 @@
 package com.webber.nflsurvivor.service;
 
-import com.webber.nflsurvivor.domain.Game;
+import com.webber.nflsurvivor.game.Game;
 
 import java.util.Set;
 

@@ -1,7 +1,7 @@
 package com.webber.nflsurvivor.service.impl;
 
-import com.webber.nflsurvivor.domain.Game;
-import com.webber.nflsurvivor.domain.GameResult;
+import com.webber.nflsurvivor.game.Game;
+import com.webber.nflsurvivor.game.GameResult;
 import com.webber.nflsurvivor.domain.WeeklyGameSelection;
 import org.junit.jupiter.api.Test;
 

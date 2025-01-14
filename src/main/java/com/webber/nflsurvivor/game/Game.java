@@ -1,5 +1,7 @@
-package com.webber.nflsurvivor.domain;
+package com.webber.nflsurvivor.game;
 
+import com.webber.nflsurvivor.domain.Stadium;
+import com.webber.nflsurvivor.domain.Team;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

@@ -1,6 +1,4 @@
-package com.webber.nflsurvivor.service;
-
-import com.webber.nflsurvivor.game.Game;
+package com.webber.nflsurvivor.game;
 
 import java.util.List;
 

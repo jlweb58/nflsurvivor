@@ -1,9 +1,6 @@
-package com.webber.nflsurvivor.service.impl;
+package com.webber.nflsurvivor.game;
 
-import com.webber.nflsurvivor.game.Game;
 import com.webber.nflsurvivor.domain.WeeklyTeamScore;
-import com.webber.nflsurvivor.repository.GameRepository;
-import com.webber.nflsurvivor.service.GameService;
 import com.webber.nflsurvivor.service.TeamService;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;

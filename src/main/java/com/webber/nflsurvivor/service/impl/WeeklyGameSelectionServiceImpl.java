@@ -1,6 +1,8 @@
 package com.webber.nflsurvivor.service.impl;
 
 import com.webber.nflsurvivor.domain.*;
+import com.webber.nflsurvivor.game.Game;
+import com.webber.nflsurvivor.game.GameResult;
 import com.webber.nflsurvivor.repository.WeeklyGameSelectionRepository;
 import com.webber.nflsurvivor.util.DateTimeService;
 import com.webber.nflsurvivor.service.TeamService;
