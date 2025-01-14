@@ -88,18 +88,6 @@ public class TeamServiceImplIntegrationTest {
         assertEquals(new WeeklyTeamScore(0, 2, 0), team2Week2Score);
         assertEquals(new WeeklyTeamScore(1, 0, 1), team3Week2Score);
         assertEquals(new WeeklyTeamScore(1, 0, 1), team4Week2Score);
-
-
-
-
-
-
-
-
-
-
-
-
     }
 
 }
