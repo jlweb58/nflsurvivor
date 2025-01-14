@@ -1,6 +1,5 @@
-package com.webber.nflsurvivor.repository;
+package com.webber.nflsurvivor.user;
 
-import com.webber.nflsurvivor.domain.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface UserRepository extends JpaRepository<User, Long> {

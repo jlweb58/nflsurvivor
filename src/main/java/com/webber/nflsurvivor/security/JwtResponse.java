@@ -1,4 +1,4 @@
-package com.webber.nflsurvivor.controller;
+package com.webber.nflsurvivor.security;
 
 import com.webber.nflsurvivor.domain.Pool;
 

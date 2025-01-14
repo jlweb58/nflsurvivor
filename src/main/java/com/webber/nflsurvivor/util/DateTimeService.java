@@ -1,7 +1,6 @@
-package com.webber.nflsurvivor.service;
+package com.webber.nflsurvivor.util;
 
 import java.time.Instant;
-import java.time.ZonedDateTime;
 
 public interface DateTimeService {
 

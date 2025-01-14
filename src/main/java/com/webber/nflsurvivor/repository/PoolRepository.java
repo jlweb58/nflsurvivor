@@ -1,7 +1,6 @@
 package com.webber.nflsurvivor.repository;
 
 import com.webber.nflsurvivor.domain.Pool;
-import com.webber.nflsurvivor.domain.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 

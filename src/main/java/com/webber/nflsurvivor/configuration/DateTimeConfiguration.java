@@ -1,7 +1,7 @@
 package com.webber.nflsurvivor.configuration;
 
-import com.webber.nflsurvivor.service.DateTimeService;
-import com.webber.nflsurvivor.service.impl.DateTimeServiceImpl;
+import com.webber.nflsurvivor.util.DateTimeService;
+import com.webber.nflsurvivor.util.DateTimeServiceImpl;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

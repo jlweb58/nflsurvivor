@@ -1,5 +1,6 @@
 package com.webber.nflsurvivor.domain;
 
+import com.webber.nflsurvivor.user.User;
 import jakarta.persistence.*;
 
 @Entity

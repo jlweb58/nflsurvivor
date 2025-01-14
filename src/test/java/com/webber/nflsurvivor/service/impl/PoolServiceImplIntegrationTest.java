@@ -2,9 +2,9 @@ package com.webber.nflsurvivor.service.impl;
 
 import com.webber.nflsurvivor.SurvivorApplication;
 import com.webber.nflsurvivor.domain.Pool;
-import com.webber.nflsurvivor.domain.User;
+import com.webber.nflsurvivor.user.User;
 import com.webber.nflsurvivor.service.PoolService;
-import com.webber.nflsurvivor.service.UserService;
+import com.webber.nflsurvivor.user.UserService;
 import jakarta.transaction.Transactional;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

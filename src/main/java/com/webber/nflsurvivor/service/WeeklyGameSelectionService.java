@@ -2,10 +2,9 @@ package com.webber.nflsurvivor.service;
 
 import com.webber.nflsurvivor.domain.GameWillStartSoonException;
 import com.webber.nflsurvivor.domain.TeamAlreadySelectedException;
-import com.webber.nflsurvivor.domain.User;
+import com.webber.nflsurvivor.user.User;
 import com.webber.nflsurvivor.domain.WeeklyGameSelection;
 
-import java.time.ZonedDateTime;
 import java.util.List;
 
 public interface WeeklyGameSelectionService {

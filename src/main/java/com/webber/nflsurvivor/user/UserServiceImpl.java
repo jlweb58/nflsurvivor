@@ -1,10 +1,5 @@
-package com.webber.nflsurvivor.service.impl;
+package com.webber.nflsurvivor.user;
 
-import com.webber.nflsurvivor.controller.UserNotFoundException;
-import com.webber.nflsurvivor.domain.User;
-import com.webber.nflsurvivor.domain.UserAlreadyExistsException;
-import com.webber.nflsurvivor.repository.UserRepository;
-import com.webber.nflsurvivor.service.UserService;
 import jakarta.transaction.Transactional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

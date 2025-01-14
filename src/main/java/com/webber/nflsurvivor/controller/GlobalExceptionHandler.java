@@ -2,7 +2,8 @@ package com.webber.nflsurvivor.controller;
 
 import com.webber.nflsurvivor.domain.GameWillStartSoonException;
 import com.webber.nflsurvivor.domain.TeamAlreadySelectedException;
-import com.webber.nflsurvivor.domain.UserAlreadyExistsException;
+import com.webber.nflsurvivor.user.UserAlreadyExistsException;
+import com.webber.nflsurvivor.user.UserNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;

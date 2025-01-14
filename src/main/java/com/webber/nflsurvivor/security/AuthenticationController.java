@@ -1,9 +1,8 @@
-package com.webber.nflsurvivor.controller;
+package com.webber.nflsurvivor.security;
 
 import com.webber.nflsurvivor.domain.Pool;
-import com.webber.nflsurvivor.security.JwtService;
-import com.webber.nflsurvivor.security.UserDetailsImpl;
 import com.webber.nflsurvivor.service.PoolService;
+import com.webber.nflsurvivor.user.LoginRequest;
 import jakarta.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

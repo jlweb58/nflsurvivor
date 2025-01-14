@@ -1,8 +1,4 @@
-package com.webber.nflsurvivor.service;
-
-import com.webber.nflsurvivor.controller.UserNotFoundException;
-import com.webber.nflsurvivor.domain.User;
-import com.webber.nflsurvivor.domain.UserAlreadyExistsException;
+package com.webber.nflsurvivor.user;
 
 public interface UserService {
 

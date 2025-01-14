@@ -2,9 +2,10 @@ package com.webber.nflsurvivor.service.impl;
 
 import com.webber.nflsurvivor.domain.*;
 import com.webber.nflsurvivor.repository.WeeklyGameSelectionRepository;
-import com.webber.nflsurvivor.service.DateTimeService;
+import com.webber.nflsurvivor.util.DateTimeService;
 import com.webber.nflsurvivor.service.TeamService;
 import com.webber.nflsurvivor.service.WeeklyGameSelectionService;
+import com.webber.nflsurvivor.user.User;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

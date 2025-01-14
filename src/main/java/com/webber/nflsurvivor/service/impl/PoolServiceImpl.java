@@ -1,7 +1,6 @@
 package com.webber.nflsurvivor.service.impl;
 
 import com.webber.nflsurvivor.domain.Pool;
-import com.webber.nflsurvivor.domain.User;
 import com.webber.nflsurvivor.repository.PoolRepository;
 import com.webber.nflsurvivor.service.PoolService;
 import jakarta.transaction.Transactional;

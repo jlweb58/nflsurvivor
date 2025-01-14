@@ -1,6 +1,7 @@
 package com.webber.nflsurvivor.domain;
 
 
+import com.webber.nflsurvivor.game.Game;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

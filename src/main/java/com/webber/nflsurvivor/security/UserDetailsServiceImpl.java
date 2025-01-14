@@ -1,8 +1,7 @@
-package com.webber.nflsurvivor.service.impl;
+package com.webber.nflsurvivor.security;
 
-import com.webber.nflsurvivor.domain.User;
-import com.webber.nflsurvivor.repository.UserRepository;
-import com.webber.nflsurvivor.security.UserDetailsImpl;
+import com.webber.nflsurvivor.user.User;
+import com.webber.nflsurvivor.user.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

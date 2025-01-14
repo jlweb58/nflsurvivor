@@ -1,4 +1,4 @@
-package com.webber.nflsurvivor.controller;
+package com.webber.nflsurvivor.user;
 
 public class UserNotFoundException extends Exception {
 

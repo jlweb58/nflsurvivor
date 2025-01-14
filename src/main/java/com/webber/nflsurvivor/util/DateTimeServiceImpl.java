@@ -1,6 +1,5 @@
-package com.webber.nflsurvivor.service.impl;
+package com.webber.nflsurvivor.util;
 
-import com.webber.nflsurvivor.service.DateTimeService;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;

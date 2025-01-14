@@ -1,6 +1,6 @@
 package com.webber.nflsurvivor.service.impl;
 
-import com.webber.nflsurvivor.domain.Game;
+import com.webber.nflsurvivor.game.Game;
 import com.webber.nflsurvivor.domain.WeeklyTeamScore;
 import com.webber.nflsurvivor.repository.GameRepository;
 import com.webber.nflsurvivor.service.GameService;
@@ -9,7 +9,6 @@ import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service

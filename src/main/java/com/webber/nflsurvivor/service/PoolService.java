@@ -1,7 +1,6 @@
 package com.webber.nflsurvivor.service;
 
 import com.webber.nflsurvivor.domain.Pool;
-import com.webber.nflsurvivor.domain.User;
 
 import java.util.List;
 import java.util.Set;

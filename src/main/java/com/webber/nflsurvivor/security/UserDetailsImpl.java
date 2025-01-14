@@ -1,7 +1,7 @@
 package com.webber.nflsurvivor.security;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.webber.nflsurvivor.domain.User;
+import com.webber.nflsurvivor.user.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
