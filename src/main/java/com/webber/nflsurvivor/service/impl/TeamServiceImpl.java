@@ -52,7 +52,7 @@ public class TeamServiceImpl implements TeamService {
             if (!game.isFinished()) {
                 continue;
             }
-            Team winningTeam = getWinningTeam(game.getHomePoints(), game.getAwayPoints(), game.getHomeTeam(), game.getAwayTeam());
+            Team winningTeam = game.getWinningTeam();
             incrementResultCount(teamId, winningTeam, weeklyTeamScore);
         }
 
@@ -69,13 +69,4 @@ public class TeamServiceImpl implements TeamService {
         }
     }
 
-    private static Team getWinningTeam(int homePoints, int awayPoints,  Team homeTeam, Team awayTeam) {
-        Team winningTeam = null;
-        if (homePoints > awayPoints) {
-            winningTeam = homeTeam;
-        } else if (awayPoints > homePoints) {
-            winningTeam = awayTeam;
-        }
-        return winningTeam;
-    }
 }

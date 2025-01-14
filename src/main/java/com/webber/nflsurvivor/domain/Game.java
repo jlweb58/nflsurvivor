@@ -148,6 +148,19 @@ public class Game {
         return this;
     }
 
+    public Team getWinningTeam() {
+        if (!isFinished()) {
+            return null;
+        }
+        Team winningTeam = null;
+        if (homePoints > awayPoints) {
+            winningTeam = homeTeam;
+        } else if (awayPoints > homePoints) {
+            winningTeam = awayTeam;
+        }
+        return winningTeam;
+    }
+
     @Override
     public String toString() {
         return "Game{" +

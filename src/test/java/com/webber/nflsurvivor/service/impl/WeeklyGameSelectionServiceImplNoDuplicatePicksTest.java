@@ -1,13 +1,9 @@
 package com.webber.nflsurvivor.service.impl;
 
 import com.webber.nflsurvivor.domain.Game;
-import com.webber.nflsurvivor.domain.Stadium;
 import com.webber.nflsurvivor.domain.TeamAlreadySelectedException;
 import com.webber.nflsurvivor.domain.WeeklyGameSelection;
-import com.webber.nflsurvivor.repository.StadiumRepository;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import java.time.Instant;
 import java.time.LocalDateTime;

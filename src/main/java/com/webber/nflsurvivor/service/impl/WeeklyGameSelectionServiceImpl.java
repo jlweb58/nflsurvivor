@@ -1,10 +1,6 @@
 package com.webber.nflsurvivor.service.impl;
 
-import com.webber.nflsurvivor.domain.GameWillStartSoonException;
-import com.webber.nflsurvivor.domain.TeamAlreadySelectedException;
-import com.webber.nflsurvivor.domain.User;
-import com.webber.nflsurvivor.domain.WeeklyGameSelection;
-import com.webber.nflsurvivor.domain.WeeklyTeamScore;
+import com.webber.nflsurvivor.domain.*;
 import com.webber.nflsurvivor.repository.WeeklyGameSelectionRepository;
 import com.webber.nflsurvivor.service.DateTimeService;
 import com.webber.nflsurvivor.service.TeamService;
@@ -58,8 +54,24 @@ public class WeeklyGameSelectionServiceImpl implements WeeklyGameSelectionServic
         weeklyGameSelections.forEach(wgs -> {
             WeeklyTeamScore selectedTeamScore = teamService.getWeeklyTeamScoreByTeamId(wgs.getWinningTeamSelection().getId(), wgs.getWeek());
             wgs.getWinningTeamSelection().setWeeklyTeamScore(selectedTeamScore);
+            wgs.setGameResult(getGameResultForSelection(wgs));
         });
         return weeklyGameSelections;
+    }
+
+    private GameResult getGameResultForSelection(WeeklyGameSelection selection) {
+        Game game = selection.getSelectedGame();
+        Team selectedTeam = selection.getWinningTeamSelection();
+        if (!game.isFinished()) {
+            return null;
+        }
+        if (game.getWinningTeam() == null) {
+            return GameResult.TIE;
+        } else if (game.getWinningTeam().equals(selectedTeam)) {
+            return GameResult.WIN;
+        } else {
+            return GameResult.LOSS;
+        }
     }
 
     @Override
