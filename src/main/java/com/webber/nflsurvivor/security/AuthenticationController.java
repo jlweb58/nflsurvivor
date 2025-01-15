@@ -41,10 +41,6 @@ public class AuthenticationController {
         String jwt = jwtService.generateToken(new HashMap<>(), userDetails);
         User user = userService.findUserById(userDetails.getId());
         return ResponseEntity.ok(new JwtResponse(jwt,
-                userDetails.getId(),
-                userDetails.getUsername(),
-                user.getUserRoles(),
-                user.getPools(),
-                user.getPlayerStatus()));
+                user));
     }
 }

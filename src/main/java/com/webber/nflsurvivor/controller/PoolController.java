@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Set;
 
 @RestController
@@ -33,5 +34,10 @@ public class PoolController {
     public ResponseEntity<Set<Pool>> listAll() {
         Set<Pool> allPools = poolService.loadAll();
         return ResponseEntity.ok(allPools);
+    }
+
+    @GetMapping(path = "/{userId}")
+    public ResponseEntity<List<Pool>> getForUser(@PathVariable Long userId) {
+        return ResponseEntity.ok(poolService.findByUserId(userId));
     }
 }
