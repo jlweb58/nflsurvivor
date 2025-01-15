@@ -1,0 +1,2 @@
+ALTER TABLE app_users
+ADD player_status VARCHAR(255) DEFAULT 'ACTIVE';

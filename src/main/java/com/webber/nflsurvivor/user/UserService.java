@@ -1,5 +1,7 @@
 package com.webber.nflsurvivor.user;
 
+import java.util.List;
+
 public interface UserService {
 
     /**
@@ -30,4 +32,8 @@ public interface UserService {
     User getCurrentUser() throws UserNotFoundException;
 
     User findUserById(Long id);
+
+    List<User> findAllUsers();
+
+    User save(User user);
 }

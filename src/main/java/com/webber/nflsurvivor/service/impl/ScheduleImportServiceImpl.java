@@ -94,7 +94,7 @@ public class ScheduleImportServiceImpl implements ScheduleImportService {
         long venueEspnId = venueNode.get("id").asLong();
         Stadium stadium = stadiumRepository.findByEspnId(venueEspnId);
         ZonedDateTime zonedDateTime = ZonedDateTime.parse(competitionNode.get("date").asText(), FORMATTER);
-        Double pointSpread = 0.0;
+        double pointSpread = 0.0;
         if (competitionNode.get("odds") != null) {
             JsonNode oddsNode = competitionNode.get("odds");
             pointSpread = oddsNode.get(0).get("spread").asDouble();

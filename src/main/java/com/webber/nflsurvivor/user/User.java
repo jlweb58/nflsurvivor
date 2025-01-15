@@ -28,11 +28,15 @@ public class User {
     @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name = "users_roles", joinColumns = @JoinColumn(name = "user_id"))
     @Enumerated(EnumType.STRING)
-    private final Set<UserRole> userRoles = new HashSet<>();
+    private Set<UserRole> userRoles = new HashSet<>();
 
     @ManyToMany(mappedBy = "poolMembers")
     @JsonBackReference
     private Set<Pool> pools = new HashSet<>();
+
+    @Column(name = "player_status")
+    @Enumerated(EnumType.STRING)
+    private PlayerStatus playerStatus = PlayerStatus.ACTIVE;
 
     protected User() {
     }
@@ -78,6 +82,11 @@ public class User {
         return userRoles;
     }
 
+    public User setUserRoles(Set<UserRole> userRoles) {
+        this.userRoles = userRoles;
+        return this;
+    }
+
     public Long getId() {
         return id;
     }
@@ -99,5 +108,18 @@ public class User {
     public User addPool(Pool pool) {
         pools.add(pool);
         return this;
+    }
+
+    public PlayerStatus getPlayerStatus() {
+        return playerStatus;
+    }
+
+    public User setPlayerStatus(PlayerStatus playerStatus) {
+        this.playerStatus = playerStatus;
+        return this;
+    }
+
+    public boolean isEliminated() {
+        return playerStatus == PlayerStatus.ELIMINATED;
     }
 }
