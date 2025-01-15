@@ -1,7 +1,5 @@
-package com.webber.nflsurvivor.controller;
+package com.webber.nflsurvivor.pool;
 
-import com.webber.nflsurvivor.domain.Pool;
-import com.webber.nflsurvivor.service.PoolService;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

@@ -1,9 +1,7 @@
-package com.webber.nflsurvivor.service.impl;
+package com.webber.nflsurvivor.pool;
 
 import com.webber.nflsurvivor.SurvivorApplication;
-import com.webber.nflsurvivor.domain.Pool;
 import com.webber.nflsurvivor.user.User;
-import com.webber.nflsurvivor.service.PoolService;
 import com.webber.nflsurvivor.user.UserService;
 import jakarta.transaction.Transactional;
 import org.junit.jupiter.api.Test;

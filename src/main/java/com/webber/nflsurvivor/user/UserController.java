@@ -1,7 +1,7 @@
 package com.webber.nflsurvivor.user;
 
-import com.webber.nflsurvivor.domain.Pool;
-import com.webber.nflsurvivor.service.PoolService;
+import com.webber.nflsurvivor.pool.Pool;
+import com.webber.nflsurvivor.pool.PoolService;
 import jakarta.transaction.Transactional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

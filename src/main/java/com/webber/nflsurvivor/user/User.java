@@ -1,7 +1,7 @@
 package com.webber.nflsurvivor.user;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.webber.nflsurvivor.domain.Pool;
+import com.webber.nflsurvivor.pool.Pool;
 import jakarta.persistence.*;
 
 import java.util.HashSet;

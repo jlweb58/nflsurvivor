@@ -1,4 +1,4 @@
-package com.webber.nflsurvivor.domain;
+package com.webber.nflsurvivor.pool;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.webber.nflsurvivor.user.User;
