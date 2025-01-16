@@ -5,6 +5,7 @@ import com.webber.nflsurvivor.domain.WeeklyTeamScore;
 import com.webber.nflsurvivor.service.TeamService;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -29,8 +30,8 @@ public class TeamController {
     }
 
     @GetMapping(path="/{teamId}")
-    public WeeklyTeamScore getWeeklyTeamScore(@PathVariable Long teamId, @RequestParam int week) {
-        return teamService.getWeeklyTeamScoreByTeamId(teamId, week);
+    public ResponseEntity<WeeklyTeamScore> getWeeklyTeamScore(@PathVariable Long teamId, @RequestParam int week) {
+        return ResponseEntity.ok(teamService.getWeeklyTeamScoreByTeamId(teamId, week));
     }
 
 }

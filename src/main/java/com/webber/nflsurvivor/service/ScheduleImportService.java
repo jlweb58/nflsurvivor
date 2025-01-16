@@ -9,4 +9,6 @@ public interface ScheduleImportService {
 
     Set<Game> importScheduleForWeekAndYear(Integer week, Integer year);
 
+    void importScheduleWeeksForYear(Integer year);
+
 }

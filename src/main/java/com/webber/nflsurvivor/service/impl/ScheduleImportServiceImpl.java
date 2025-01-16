@@ -43,7 +43,10 @@ public class ScheduleImportServiceImpl implements ScheduleImportService {
 
     @Autowired
     public ScheduleImportServiceImpl(WebClient.Builder webClientBuilder, TeamRepository teamRepository, GameRepository gameRepository, StadiumRepository stadiumRepository) {
-        this.webClient = webClientBuilder.baseUrl(ESPN_BASE_URL).build();
+        this.webClient = webClientBuilder.baseUrl(ESPN_BASE_URL)
+                .codecs(configurer -> configurer.defaultCodecs()
+                .maxInMemorySize(20 * 1024 * 1024))
+                .build();
         this.teamRepository = teamRepository;
         this.gameRepository = gameRepository;
         this.stadiumRepository = stadiumRepository;
@@ -68,6 +71,47 @@ public class ScheduleImportServiceImpl implements ScheduleImportService {
                         return Collections.<Game>emptySet();
                     }
                 }).block();
+    }
+
+    @Override
+    public void importScheduleWeeksForYear(Integer year) {
+        webClient.get()
+                .uri(builder -> builder
+                        .queryParam("dates", year)
+                        .build())
+                .retrieve().bodyToMono(String.class)
+                .map(jsonString-> {
+                    ObjectMapper mapper = new ObjectMapper();
+                    try {
+                        JsonNode jsonNode = mapper.readTree(jsonString);
+                        return parseJsonToWeeks(jsonNode);
+                    } catch (Exception e) {
+                        LOG.error(e.getMessage());
+                        return "Error";
+                    }
+                }).block();
+    }
+
+    private String parseJsonToWeeks(JsonNode rootNode) {
+        JsonNode calendarNode = rootNode
+                .path("leagues")
+                        .path(0).
+                path("calendar");
+        JsonNode regularSeasonNode  = findRegularSeasonNode(calendarNode);
+        JsonNode entriesNode = regularSeasonNode.get("entries");
+
+
+        return "OK";
+    }
+
+    private JsonNode findRegularSeasonNode(JsonNode calendarNodeArray) {
+        for (JsonNode seasonNode : calendarNodeArray) {
+            if (seasonNode.has("value") &&
+            seasonNode.get("value").asText().equals("2")) {
+            return seasonNode;
+            }
+        }
+        return null;
     }
 
     private Set<Game> parseJsonToGames(JsonNode rootNode, Integer week) {

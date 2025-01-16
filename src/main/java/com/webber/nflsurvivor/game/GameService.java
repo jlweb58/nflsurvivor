@@ -7,4 +7,6 @@ public interface GameService {
     Game create(Game game);
 
     List<Game> findGamesForWeek(int week);
+
+    Integer getActiveGameWeek();
 }

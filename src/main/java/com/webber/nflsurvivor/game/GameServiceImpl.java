@@ -41,4 +41,9 @@ public class GameServiceImpl implements GameService {
 
         return games;
     }
+
+    @Override
+    public Integer getActiveGameWeek() {
+        return 0;
+    }
 }

@@ -6,6 +6,7 @@ import jakarta.transaction.Transactional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -32,6 +33,12 @@ public class ScheduleImportController {
     @GetMapping("/import")
     public Set<Game> importGamesForWeekAndYear(@RequestParam Integer week, @RequestParam Integer year ) {
         return scheduleImportService.importScheduleForWeekAndYear(week, year);
+    }
+
+    @GetMapping("/import-weeks")
+    public ResponseEntity<String> importScheduleWeeksForYear( @RequestParam Integer year) {
+        scheduleImportService.importScheduleWeeksForYear(year);
+        return ResponseEntity.ok("OK");
     }
 
 }

@@ -55,7 +55,7 @@ public class DateTimeConfigController {
     }
 
     @GetMapping
-    public ResponseEntity<String> getCurrentDateTime() {
-        return ResponseEntity.ok(dateTimeService.getCurrentDateTime().toString());
+    public ResponseEntity<Instant> getCurrentDateTime() {
+        return ResponseEntity.ok(dateTimeService.getCurrentDateTime());
     }
 }
