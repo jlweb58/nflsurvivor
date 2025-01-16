@@ -39,6 +39,8 @@ dependencies {
 	implementation "org.springframework.boot:spring-boot-starter-data-rest:${springBootVersion}"
 	implementation "org.springframework.boot:spring-boot-starter-security:${springBootVersion}"
 	implementation "org.springframework.boot:spring-boot-starter-webflux:${springBootVersion}"
+	implementation "org.springframework.cloud:spring-cloud-context:4.1.1"
+	implementation "org.springframework.boot:spring-boot-configuration-processor:${springBootVersion}"
 	implementation 'io.jsonwebtoken:jjwt-api:0.12.3'
 	implementation 'io.jsonwebtoken:jjwt-impl:0.12.3'
 	implementation 'io.jsonwebtoken:jjwt-jackson:0.12.3'

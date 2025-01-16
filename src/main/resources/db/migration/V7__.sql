@@ -36,7 +36,7 @@ VALUES
 (3839,'MetLife Stadium',	'America/New_York'),
 (3810,'Nissan Stadium',		'America/Chicago'),
 (3891,'NRG Stadium',		'America/Chicago'),
-(3874,'Paycore Stadium',		'America/New_York'),
+(3874,'Paycor Stadium',		'America/New_York'),
 (3886,'Raymond James Stadium',	'America/New_York'),
 (7065,'SoFi Stadium',		'America/Los_Angeles'),
 (3933,'Soldier Field',		'America/Chicago'),

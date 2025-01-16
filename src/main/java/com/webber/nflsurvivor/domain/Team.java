@@ -19,6 +19,10 @@ public class Team {
     @Column(name = "city")
     private String city;
 
+    @ManyToOne
+    @JoinColumn(name = "home_stadium_id", referencedColumnName = "id")
+    private Stadium homeStadium;
+
     private transient WeeklyTeamScore weeklyTeamScore;
 
     protected Team() {
@@ -58,6 +62,9 @@ public class Team {
         this.city = city;
     }
 
+    public Stadium getHomeStadium() {
+        return homeStadium;
+    }
 
     @Override
     public String toString() {
