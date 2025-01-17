@@ -1,4 +1,4 @@
-package com.webber.nflsurvivor.service;
+package com.webber.nflsurvivor.season;
 
 import com.webber.nflsurvivor.game.Game;
 

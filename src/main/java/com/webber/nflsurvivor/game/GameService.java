@@ -8,5 +8,4 @@ public interface GameService {
 
     List<Game> findGamesForWeek(int week);
 
-    Integer getActiveGameWeek();
 }

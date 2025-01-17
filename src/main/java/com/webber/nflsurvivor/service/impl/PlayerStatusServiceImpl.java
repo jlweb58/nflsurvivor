@@ -41,6 +41,9 @@ public class PlayerStatusServiceImpl implements PlayerStatusService {
            List<WeeklyGameSelection> playerSelections = weeklyGameSelectionService.findForUser(user);
             int weeksLost = 0;
             for (WeeklyGameSelection gameSelection : playerSelections) {
+                if (gameSelection.getGameResult() == null) {
+                    continue; // game isn't finished
+                }
                 if(gameSelection.getGameResult().equals(GameResult.LOSS)) {
                     weeksLost++;
                     if (weeksLost == 2) {

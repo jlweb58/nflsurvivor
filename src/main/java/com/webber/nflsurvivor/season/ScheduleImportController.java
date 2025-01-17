@@ -1,7 +1,6 @@
-package com.webber.nflsurvivor.controller;
+package com.webber.nflsurvivor.season;
 
 import com.webber.nflsurvivor.game.Game;
-import com.webber.nflsurvivor.service.ScheduleImportService;
 import jakarta.transaction.Transactional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
