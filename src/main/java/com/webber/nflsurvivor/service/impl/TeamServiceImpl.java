@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 @Service
@@ -57,6 +58,12 @@ public class TeamServiceImpl implements TeamService {
         }
 
         return weeklyTeamScore;
+    }
+
+    @Override
+    public Team find(Long teamId) {
+        Optional<Team> possiblyExistingTeam = teamRepository.findById(teamId);
+        return possiblyExistingTeam.orElse(null);
     }
 
     private static void incrementResultCount(Long teamId, Team winningTeam, WeeklyTeamScore weeklyTeamScore) {

@@ -70,6 +70,11 @@ public class WeeklyGameSelection {
         return this;
     }
 
+    public WeeklyGameSelection setTeam(Team replacementTeam) {
+        winningTeamSelection = replacementTeam;
+        return this;
+    }
+
     @Override
     public String toString() {
         return "WeeklyGameSelection{" +

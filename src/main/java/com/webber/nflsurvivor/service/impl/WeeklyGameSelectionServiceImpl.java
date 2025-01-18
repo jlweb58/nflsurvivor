@@ -3,6 +3,7 @@ package com.webber.nflsurvivor.service.impl;
 import com.webber.nflsurvivor.domain.*;
 import com.webber.nflsurvivor.game.Game;
 import com.webber.nflsurvivor.game.GameResult;
+import com.webber.nflsurvivor.repository.TeamRepository;
 import com.webber.nflsurvivor.repository.WeeklyGameSelectionRepository;
 import com.webber.nflsurvivor.util.DateTimeService;
 import com.webber.nflsurvivor.service.TeamService;
@@ -15,6 +16,7 @@ import org.springframework.stereotype.Service;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional
@@ -24,12 +26,14 @@ public class WeeklyGameSelectionServiceImpl implements WeeklyGameSelectionServic
 
     private final DateTimeService dateTimeService;
     private final TeamService teamService;
+    private final TeamRepository teamRepository;
 
     @Autowired
-    public WeeklyGameSelectionServiceImpl(WeeklyGameSelectionRepository weeklyGameSelectionRepository, DateTimeService dateTimeService, TeamService teamService) {
+    public WeeklyGameSelectionServiceImpl(WeeklyGameSelectionRepository weeklyGameSelectionRepository, DateTimeService dateTimeService, TeamService teamService, TeamRepository teamRepository) {
         this.weeklyGameSelectionRepository = weeklyGameSelectionRepository;
         this.dateTimeService = dateTimeService;
         this.teamService = teamService;
+        this.teamRepository = teamRepository;
     }
 
     @Override
@@ -37,18 +41,26 @@ public class WeeklyGameSelectionServiceImpl implements WeeklyGameSelectionServic
         if (weeklyGameSelection.getId() != null) {
             throw new IllegalArgumentException("WeeklyGameSelection " + weeklyGameSelection + " already exists");
         }
-        Instant now = dateTimeService.getCurrentDateTime();
-        now = now.plus(15, ChronoUnit.MINUTES);
-        Instant gameTime = weeklyGameSelection.getSelectedGame().getStartTime();
-        if (now.isAfter(gameTime)) {
-            throw new GameWillStartSoonException("Game start time " + gameTime + " is too close to current time: " + now.plus(15, ChronoUnit.MINUTES));
+        boolean isSelectionTooLate = isSelectionTooLate(weeklyGameSelection);
+        if (isSelectionTooLate) {
+            throw new GameWillStartSoonException("Game start time is too close to current time");
         }
-        List<WeeklyGameSelection> allUserGameSelections = weeklyGameSelectionRepository.findAllByUser(weeklyGameSelection.getUser());
-        boolean isTeamAlreadyPicked = allUserGameSelections.stream().anyMatch(s -> s.getWinningTeamSelection().equals(weeklyGameSelection.getWinningTeamSelection()));
-        if (isTeamAlreadyPicked) {
+        if (isTeamAlreadyPicked(weeklyGameSelection.getWinningTeamSelection(), weeklyGameSelection.getUser())) {
             throw new TeamAlreadySelectedException("Team " + weeklyGameSelection.getWinningTeamSelection() + " was already selected by this user");
         }
         return weeklyGameSelectionRepository.save(weeklyGameSelection);
+    }
+
+    private boolean isTeamAlreadyPicked(Team team, User user) {
+        List<WeeklyGameSelection> allUserGameSelections = weeklyGameSelectionRepository.findAllByUser(user);
+        return allUserGameSelections.stream().anyMatch(s -> s.getWinningTeamSelection().equals(team));
+    }
+
+    private boolean isSelectionTooLate(WeeklyGameSelection weeklyGameSelection) throws GameWillStartSoonException {
+        Instant now = dateTimeService.getCurrentDateTime();
+        now = now.plus(15, ChronoUnit.MINUTES);
+        Instant gameTime = weeklyGameSelection.getSelectedGame().getStartTime();
+        return now.isAfter(gameTime);
     }
 
     @Override
@@ -81,4 +93,28 @@ public class WeeklyGameSelectionServiceImpl implements WeeklyGameSelectionServic
     public List<WeeklyGameSelection> findAllForWeek(int week) {
         return weeklyGameSelectionRepository.findAllByWeek(week);
     }
+
+    @Override
+    public WeeklyGameSelection changeTeamForSelection(Long selectionId, Long teamId) throws GameWillStartSoonException, TeamAlreadySelectedException {
+        Optional<WeeklyGameSelection> maybeExistingSelection = weeklyGameSelectionRepository.findById(selectionId);
+        if(!maybeExistingSelection.isPresent()) {
+            throw new RuntimeException("Selection with ID " + selectionId + " not found");
+        }
+        WeeklyGameSelection selectionToModify = maybeExistingSelection.get();
+        Optional<Team> maybeExistingTeam = teamRepository.findById(teamId);
+        if (!maybeExistingTeam.isPresent()) {
+            throw new RuntimeException(("Team with ID " + teamId + " not found"));
+        }
+        if (isSelectionTooLate(selectionToModify)) {
+            throw new GameWillStartSoonException("Game start time is too close to current time");
+        }
+        Team replacementPick = maybeExistingTeam.get();
+        if (isTeamAlreadyPicked(replacementPick, selectionToModify.getUser())) {
+            throw new TeamAlreadySelectedException("Team " + replacementPick.getName() + " was already selected by this user");
+        }
+        selectionToModify.setTeam(replacementPick);
+        return selectionToModify;
+        }
+
+
 }

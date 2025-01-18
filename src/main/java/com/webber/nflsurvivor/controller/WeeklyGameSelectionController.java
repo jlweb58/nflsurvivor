@@ -4,6 +4,7 @@ import com.webber.nflsurvivor.game.Game;
 import com.webber.nflsurvivor.domain.GameWillStartSoonException;
 import com.webber.nflsurvivor.domain.Team;
 import com.webber.nflsurvivor.domain.TeamAlreadySelectedException;
+import com.webber.nflsurvivor.service.TeamService;
 import com.webber.nflsurvivor.user.User;
 import com.webber.nflsurvivor.domain.WeeklyGameSelection;
 import com.webber.nflsurvivor.game.GameRepository;
@@ -21,6 +22,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -42,14 +44,16 @@ public class WeeklyGameSelectionController {
     private final WeeklyGameSelectionService weeklyGameSelectionService;
 
     private static final Logger LOG = LoggerFactory.getLogger(WeeklyGameSelectionController.class);
+    private final TeamService teamService;
 
     @Autowired
     public WeeklyGameSelectionController(UserService userService, GameRepository gameRepository,
-                                         TeamRepository teamRepository, WeeklyGameSelectionService weeklyGameSelectionService) {
+                                         TeamRepository teamRepository, WeeklyGameSelectionService weeklyGameSelectionService, TeamService teamService) {
         this.userService = userService;
         this.gameRepository = gameRepository;
         this.teamRepository = teamRepository;
         this.weeklyGameSelectionService = weeklyGameSelectionService;
+        this.teamService = teamService;
     }
 
     @PostMapping(path = "/{gameId}/{teamId}")
@@ -81,6 +85,15 @@ public class WeeklyGameSelectionController {
     public ResponseEntity<List<WeeklyGameSelection>> getAllForUser(@PathVariable Long userId) throws UserNotFoundException {
         User user = userService.findUserById(userId);
         return ResponseEntity.status(HttpStatus.OK).body(weeklyGameSelectionService.findForUser(user));
+    }
+
+    @PutMapping(path = "/{selectionId}/{teamId}")
+    public ResponseEntity<WeeklyGameSelection> updateTeamSelection(@PathVariable Long selectionId, @PathVariable Long teamId) throws TeamAlreadySelectedException, GameWillStartSoonException {
+        try {
+            return ResponseEntity.ok(weeklyGameSelectionService.changeTeamForSelection(selectionId, teamId));
+        } catch (TeamAlreadySelectedException | GameWillStartSoonException e) {
+            throw e;
+        }
     }
 
 }

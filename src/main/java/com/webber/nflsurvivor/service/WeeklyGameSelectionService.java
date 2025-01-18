@@ -6,6 +6,7 @@ import com.webber.nflsurvivor.user.User;
 import com.webber.nflsurvivor.domain.WeeklyGameSelection;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface WeeklyGameSelectionService {
 
@@ -22,4 +23,15 @@ public interface WeeklyGameSelectionService {
     List<WeeklyGameSelection> findForUser(User user);
 
     List<WeeklyGameSelection> findAllForWeek(int week);
+
+    /**
+     * Replace the team in the given selection (subject to all usual validity checks)
+     * @param selectionId  The ID of the existing selection (which must be for the current week)
+     * @param teamId The ID of the team to select instead of the already existing team selection (the team must not have been already
+     *               selected by the user)
+     * @return  The updated selection
+     * @throws GameWillStartSoonException If the selection's game is going to start in 15 minutes or less
+     * @throws TeamAlreadySelectedException If the user has already selected this team in a past week.
+     */
+    WeeklyGameSelection changeTeamForSelection(Long selectionId, Long teamId) throws GameWillStartSoonException, TeamAlreadySelectedException;
 }

@@ -21,4 +21,6 @@ public interface TeamService {
      * @return  The WeeklyTeamScore for that team and week.
      */
     WeeklyTeamScore getWeeklyTeamScoreByTeamId(Long teamId, int week);
+
+    Team find(Long teamId);
 }
