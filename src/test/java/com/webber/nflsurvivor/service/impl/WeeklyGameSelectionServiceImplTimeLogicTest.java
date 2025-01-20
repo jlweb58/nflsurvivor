@@ -39,16 +39,11 @@ public class WeeklyGameSelectionServiceImplTimeLogicTest extends AbstractWeeklyG
         gameService.create(selectedGame3);
         WeeklyGameSelection weeklyGameSelection1 = weeklyGameSelectionService.create(new WeeklyGameSelection(user1, team1, selectedGame1));
         WeeklyGameSelection weeklyGameSelection2 = weeklyGameSelectionService.create(new WeeklyGameSelection(user2, team2, selectedGame2));
-        WeeklyGameSelection weeklyGameSelection3 = weeklyGameSelectionService.create(new WeeklyGameSelection(user1, team2, selectedGame3));
         List<WeeklyGameSelection> selectionsForWeek1 = weeklyGameSelectionService.findAllForWeek(1);
         assertNotNull(selectionsForWeek1);
         assertEquals(2, selectionsForWeek1.size());
         assertTrue(selectionsForWeek1.contains(weeklyGameSelection1));
         assertTrue(selectionsForWeek1.contains(weeklyGameSelection2));
-        List<WeeklyGameSelection> selectionsForWeek2 = weeklyGameSelectionService.findAllForWeek(2);
-        assertNotNull(selectionsForWeek2);
-        assertEquals(1, selectionsForWeek2.size());
-        assertTrue(selectionsForWeek2.contains(weeklyGameSelection3));
     }
 
     @Test

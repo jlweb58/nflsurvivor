@@ -5,6 +5,7 @@ import com.webber.nflsurvivor.game.Game;
 import com.webber.nflsurvivor.game.GameResult;
 import com.webber.nflsurvivor.repository.TeamRepository;
 import com.webber.nflsurvivor.repository.WeeklyGameSelectionRepository;
+import com.webber.nflsurvivor.season.SeasonWeekService;
 import com.webber.nflsurvivor.util.DateTimeService;
 import com.webber.nflsurvivor.service.TeamService;
 import com.webber.nflsurvivor.service.WeeklyGameSelectionService;
@@ -27,17 +28,20 @@ public class WeeklyGameSelectionServiceImpl implements WeeklyGameSelectionServic
     private final DateTimeService dateTimeService;
     private final TeamService teamService;
     private final TeamRepository teamRepository;
+    private final SeasonWeekService seasonWeekService;
 
     @Autowired
-    public WeeklyGameSelectionServiceImpl(WeeklyGameSelectionRepository weeklyGameSelectionRepository, DateTimeService dateTimeService, TeamService teamService, TeamRepository teamRepository) {
+    public WeeklyGameSelectionServiceImpl(WeeklyGameSelectionRepository weeklyGameSelectionRepository, DateTimeService dateTimeService,
+                                          TeamService teamService, TeamRepository teamRepository, SeasonWeekService seasonWeekService) {
         this.weeklyGameSelectionRepository = weeklyGameSelectionRepository;
         this.dateTimeService = dateTimeService;
         this.teamService = teamService;
         this.teamRepository = teamRepository;
+        this.seasonWeekService = seasonWeekService;
     }
 
     @Override
-    public WeeklyGameSelection create(WeeklyGameSelection weeklyGameSelection) throws GameWillStartSoonException, TeamAlreadySelectedException {
+    public WeeklyGameSelection create(WeeklyGameSelection weeklyGameSelection) throws GameWillStartSoonException, TeamAlreadySelectedException, WrongSeasonWeekException {
         if (weeklyGameSelection.getId() != null) {
             throw new IllegalArgumentException("WeeklyGameSelection " + weeklyGameSelection + " already exists");
         }
@@ -48,7 +52,18 @@ public class WeeklyGameSelectionServiceImpl implements WeeklyGameSelectionServic
         if (isTeamAlreadyPicked(weeklyGameSelection.getWinningTeamSelection(), weeklyGameSelection.getUser())) {
             throw new TeamAlreadySelectedException("Team " + weeklyGameSelection.getWinningTeamSelection() + " was already selected by this user");
         }
+        if (!isSelectionLegalSeasonWeek(weeklyGameSelection.getSelectedGame())) {
+            throw new WrongSeasonWeekException("Can't select game not in active week");
+        }
         return weeklyGameSelectionRepository.save(weeklyGameSelection);
+    }
+
+    private boolean isSelectionLegalSeasonWeek(Game game) {
+        int currentSeasonWeek = seasonWeekService.getActiveGameWeek();
+        if (currentSeasonWeek == 0 && game.getWeek() == 1) {
+            return true;
+        }
+        return  (game.getWeek() == currentSeasonWeek);
     }
 
     private boolean isTeamAlreadyPicked(Team team, User user) {

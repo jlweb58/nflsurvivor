@@ -1,12 +1,9 @@
 package com.webber.nflsurvivor.controller;
 
+import com.webber.nflsurvivor.domain.*;
 import com.webber.nflsurvivor.game.Game;
-import com.webber.nflsurvivor.domain.GameWillStartSoonException;
-import com.webber.nflsurvivor.domain.Team;
-import com.webber.nflsurvivor.domain.TeamAlreadySelectedException;
 import com.webber.nflsurvivor.service.TeamService;
 import com.webber.nflsurvivor.user.User;
-import com.webber.nflsurvivor.domain.WeeklyGameSelection;
 import com.webber.nflsurvivor.game.GameRepository;
 import com.webber.nflsurvivor.repository.TeamRepository;
 import com.webber.nflsurvivor.user.UserService;
@@ -69,7 +66,7 @@ public class WeeklyGameSelectionController {
         WeeklyGameSelection weeklyGameSelection = new WeeklyGameSelection(user, team, game);
         try {
             weeklyGameSelectionService.create(weeklyGameSelection);
-        } catch (GameWillStartSoonException | TeamAlreadySelectedException e) {
+        } catch (GameWillStartSoonException | TeamAlreadySelectedException | WrongSeasonWeekException e) {
             throw new RuntimeException(e);
         }
         return ResponseEntity.status(HttpStatus.OK).body(Map.of("message", "Successfully created selection"));

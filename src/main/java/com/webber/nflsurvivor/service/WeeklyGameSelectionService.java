@@ -2,6 +2,7 @@ package com.webber.nflsurvivor.service;
 
 import com.webber.nflsurvivor.domain.GameWillStartSoonException;
 import com.webber.nflsurvivor.domain.TeamAlreadySelectedException;
+import com.webber.nflsurvivor.domain.WrongSeasonWeekException;
 import com.webber.nflsurvivor.user.User;
 import com.webber.nflsurvivor.domain.WeeklyGameSelection;
 
@@ -18,7 +19,7 @@ public interface WeeklyGameSelectionService {
      * @throws GameWillStartSoonException  if the starting time of the game is in the past, or is less than the configured minimum number of minutes for a selection
      * @throws TeamAlreadySelectedException if the user has already used the picked team in a past week
      */
-    WeeklyGameSelection create(WeeklyGameSelection weeklyGameSelection) throws GameWillStartSoonException, TeamAlreadySelectedException;
+    WeeklyGameSelection create(WeeklyGameSelection weeklyGameSelection) throws GameWillStartSoonException, TeamAlreadySelectedException, WrongSeasonWeekException;
 
     List<WeeklyGameSelection> findForUser(User user);
 

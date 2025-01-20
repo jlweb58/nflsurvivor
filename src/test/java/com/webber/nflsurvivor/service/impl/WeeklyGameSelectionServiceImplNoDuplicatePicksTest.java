@@ -18,6 +18,7 @@ public class WeeklyGameSelectionServiceImplNoDuplicatePicksTest extends Abstract
     @Test
     public void testCannotCreateTwoSelectionsWithSameWinner() throws Exception {
         when(dateTimeService.getCurrentDateTime()).thenReturn(ZonedDateTime.of(LocalDateTime.of(2024, 10, 10, 9, 0), berlinZone).toInstant());
+        when(seasonWeekService.getActiveGameWeek()).thenReturn(1).thenReturn(2);
         Game selectedGame1 = new Game(team1, team2, 1, Instant.now());
         Game selectedGame2 = new Game(team2, team3, 2, Instant.now());
         selectedGame1.setYear(2024).setVenue(stadium);
@@ -33,6 +34,7 @@ public class WeeklyGameSelectionServiceImplNoDuplicatePicksTest extends Abstract
     @Test
     public void testCanCreateTwoSelectionsWithDifferentWinners() throws Exception {
         when(dateTimeService.getCurrentDateTime()).thenReturn(ZonedDateTime.of(LocalDateTime.of(2024, 10, 10, 9, 0), berlinZone).toInstant());
+        when(seasonWeekService.getActiveGameWeek()).thenReturn(1).thenReturn(2);
         Game selectedGame1 = new Game(team1, team2, 1, Instant.now());
         Game selectedGame2 = new Game(team2, team3, 2, Instant.now());
         selectedGame1.setYear(2024).setVenue(stadium);
@@ -48,6 +50,7 @@ public class WeeklyGameSelectionServiceImplNoDuplicatePicksTest extends Abstract
     @Test
     public void testCanCreateThreeSelectionsWithDifferentWinners() throws Exception {
         when(dateTimeService.getCurrentDateTime()).thenReturn(ZonedDateTime.of(LocalDateTime.of(2024, 10, 10, 9, 0), berlinZone).toInstant());
+        when(seasonWeekService.getActiveGameWeek()).thenReturn(1).thenReturn(2).thenReturn(3);
         Game selectedGame1 = new Game(team1, team2, 1, Instant.now());
         Game selectedGame2 = new Game(team2, team3, 2, Instant.now());
         Game selectedGame3 = new Game(team3, team4, 3, Instant.now());

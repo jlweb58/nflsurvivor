@@ -8,6 +8,7 @@ import com.webber.nflsurvivor.domain.WeeklyGameSelection;
 import com.webber.nflsurvivor.game.Game;
 import com.webber.nflsurvivor.game.GameService;
 import com.webber.nflsurvivor.repository.StadiumRepository;
+import com.webber.nflsurvivor.season.SeasonWeekService;
 import com.webber.nflsurvivor.service.TeamService;
 import com.webber.nflsurvivor.service.WeeklyGameSelectionService;
 import com.webber.nflsurvivor.user.PlayerStatus;
@@ -17,10 +18,14 @@ import com.webber.nflsurvivor.util.DateTimeService;
 import jakarta.transaction.Transactional;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.TestPropertySource;
+import org.springframework.test.context.bean.override.mockito.MockitoBean;
 
 import java.time.Instant;
 import java.time.LocalDateTime;
@@ -44,7 +49,7 @@ public class PlayerStatusServiceImplIntegrationTest {
     private UserService userService;
 
     @Autowired
-    private WeeklyGameSelectionService weeklyGameSelectionService;
+    private WeeklyGameSelectionServiceImpl weeklyGameSelectionService;
 
     @Autowired
     private TeamService teamService;
@@ -54,6 +59,12 @@ public class PlayerStatusServiceImplIntegrationTest {
 
     @Autowired
     private StadiumRepository stadiumRepository;
+
+    @MockitoBean
+    private SeasonWeekService seasonWeekService;
+
+    @MockitoBean
+    private DateTimeService dateTimeService;
 
     private User user;
 
@@ -85,6 +96,8 @@ public class PlayerStatusServiceImplIntegrationTest {
 
     @Test
     public void testSetsUserToEliminatedOnSecondLoss() throws Exception {
+        when(seasonWeekService.getActiveGameWeek()).thenReturn(1).thenReturn(2).thenReturn(3);
+        when(dateTimeService.getCurrentDateTime()).thenReturn(Instant.now());
         //win
         WeeklyGameSelection selection1 = weeklyGameSelectionService.create(new WeeklyGameSelection(user, team1, game1));
         game1.setAwayPoints(0).setHomePoints(10).setFinished(true);

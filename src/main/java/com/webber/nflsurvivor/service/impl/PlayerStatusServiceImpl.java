@@ -19,14 +19,11 @@ public class PlayerStatusServiceImpl implements PlayerStatusService {
 
     private final UserService userService;
 
-    private final GameService gameService;
-
     private final WeeklyGameSelectionService weeklyGameSelectionService;
 
     @Autowired
-    public PlayerStatusServiceImpl(UserService userService, GameService gameService, WeeklyGameSelectionService weeklyGameSelectionService) {
+    public PlayerStatusServiceImpl(UserService userService, WeeklyGameSelectionService weeklyGameSelectionService) {
         this.userService = userService;
-        this.gameService = gameService;
         this.weeklyGameSelectionService = weeklyGameSelectionService;
     }
 

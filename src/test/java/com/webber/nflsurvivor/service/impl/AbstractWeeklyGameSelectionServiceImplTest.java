@@ -6,6 +6,7 @@ import com.webber.nflsurvivor.game.Game;
 import com.webber.nflsurvivor.repository.StadiumRepository;
 import com.webber.nflsurvivor.repository.TeamRepository;
 import com.webber.nflsurvivor.repository.WeeklyGameSelectionRepository;
+import com.webber.nflsurvivor.season.SeasonWeekService;
 import com.webber.nflsurvivor.util.DateTimeService;
 import com.webber.nflsurvivor.game.GameService;
 import com.webber.nflsurvivor.service.TeamService;
@@ -45,6 +46,9 @@ public class AbstractWeeklyGameSelectionServiceImplTest {
     protected UserService userService;
     @Mock
     protected DateTimeService dateTimeService;
+
+    @Mock
+    protected SeasonWeekService seasonWeekService;
     protected User user1;
     protected User user2;
     protected Team team1;
@@ -66,7 +70,8 @@ public class AbstractWeeklyGameSelectionServiceImplTest {
         team3 = teamService.create(new Team("Team3", "te3"));
         team4 = teamService.create(new Team("Team4", "te4"));
         stadium = stadiumRepository.save(new Stadium(1234L, "Doghouse Stadium", "America/New_York"));
-        weeklyGameSelectionService = new WeeklyGameSelectionServiceImpl(weeklyGameSelectionRepository, dateTimeService, teamService, teamRepository);
+        weeklyGameSelectionService = new WeeklyGameSelectionServiceImpl(weeklyGameSelectionRepository, dateTimeService,
+                teamService, teamRepository, seasonWeekService);
     }
 
     protected ZonedDateTime convertGameTimeWithOffset(ZonedDateTime gameTime, int offsetMinutes) {
